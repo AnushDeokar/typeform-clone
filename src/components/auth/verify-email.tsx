@@ -3,9 +3,9 @@ import { useRouter } from "next/navigation"
 import { useSignUp } from "@clerk/nextjs"
 import BeatLoader from "react-spinners/BeatLoader"
 
-import { Button } from "../ui/button"
-import { Card, CardDescription, CardHeader } from "../ui/card"
-import CodeInput from "./code-input"
+import { Button } from "@/components/ui/button"
+import { Card, CardDescription, CardHeader } from "@/components/ui/card"
+import CodeInput from "@/components/auth/code-input"
 
 function VerifyEmailComponent() {
   const { isLoaded, signUp, setActive } = useSignUp()
