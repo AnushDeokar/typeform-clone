@@ -6,6 +6,10 @@ export const signinSchema = z.object({
 })
 
 export const signupSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: "Email is required to login!" })
+    .max(20, { message: "Name can be of maximum 20 characters!" }),
   email: z.string().min(1, { message: "Email is required to login!" }).email(),
   password: z
     .string()

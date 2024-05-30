@@ -32,6 +32,7 @@ function SignupForm() {
   const form = useForm<FormInputs>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
       agreement: false,
@@ -45,7 +46,13 @@ function SignupForm() {
 
     try {
       setIsLoading(true)
+      const nameArr = data.name.split(" ")
+      const firstName = nameArr[0]
+      const lastName = nameArr.length > 1 ? nameArr.slice(1).join(" ") : ""
+      console.log(firstName, lastName, nameArr)
       await signUp.create({
+        firstName: firstName,
+        lastName: lastName,
         emailAddress: data.email,
         password: data.password,
       })
@@ -67,6 +74,24 @@ function SignupForm() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="form flex flex-col gap-4"
           >
+            `
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }: { field: any }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      className="outline-none"
+                      {...field}
+                      placeholder="Full Name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               name="email"
               control={form.control}
