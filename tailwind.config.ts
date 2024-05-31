@@ -25,6 +25,9 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         tooltip: "#27272A",
+        forge: "#f7f7f6",
+        secgray: "#5E5E5E",
+        secgraydark: "#e9e9e9",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
