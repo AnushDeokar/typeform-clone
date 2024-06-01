@@ -17,7 +17,7 @@ import {
 function MainHeaderComponent({ user }: { user: User | null }) {
   const { signOut } = useClerk()
 
-  const email: string = user?.emailAddresses[0].emailAddress ?? ""
+  const email: string = user?.emailAddresses[0].emailAddress ?? "A"
   return (
     <nav className="flex h-16 w-full items-center justify-between">
       <div className="flex items-center gap-2">
@@ -27,7 +27,7 @@ function MainHeaderComponent({ user }: { user: User | null }) {
 
       <div className="p-4 py-8">
         <DropdownMenu>
-          <DropdownMenuTrigger className="h-8 w-8 rounded-full bg-blue-300 hover:bg-blue-400">
+          <DropdownMenuTrigger className="h-8 w-8 rounded-full bg-blue-300 outline-none hover:bg-blue-400">
             <span className="m-auto">{email[0].toUpperCase()}</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-4">
