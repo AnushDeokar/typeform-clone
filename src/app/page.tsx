@@ -4,7 +4,7 @@ import { currentUser } from "@clerk/nextjs/server"
 import { Button } from "@/components/ui/button"
 import FormTable from "@/components/main/form-table"
 import MainHeaderComponent from "@/components/main/main-header"
-import ManageWorkspace from "@/components/main/manage-workspace"
+import ManageWorkspace from "@/components/main/create-workspace-dialog"
 import SearchBar from "@/components/main/search-bar"
 import UpgradeBanner from "@/components/main/upgrade-banner"
 import { FaPlus } from "react-icons/fa"
@@ -25,7 +25,7 @@ export default async function Home() {
             <Button className="h-8 w-full py-1 inline-flex items-center gap-2"><FaPlus />Create a new form</Button>
           </div>
           <SearchBar />
-          <ManageWorkspace />
+          <ManageWorkspace userId={user.id}/>
           <div className="flex flex-col gap-2 rounded-es-lg bg-subtle p-4">
             <p className="text-black">Responses collected</p>
             <div className="h-2 w-full rounded-e-lg bg-secgraydark"></div>

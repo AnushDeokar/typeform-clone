@@ -24,7 +24,7 @@ import VerifyEmailComponent from "./verify-email"
 type FormInputs = z.infer<typeof signupSchema>
 
 function SignupForm() {
-  const { isLoaded, signUp, setActive } = useSignUp()
+  const { isLoaded, signUp } = useSignUp()
   const [isLoading, setIsLoading] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [pendingVerification, setPendingVerification] = useState(false)
@@ -49,7 +49,6 @@ function SignupForm() {
       const nameArr = data.name.split(" ")
       const firstName = nameArr[0]
       const lastName = nameArr.length > 1 ? nameArr.slice(1).join(" ") : ""
-      console.log(firstName, lastName, nameArr)
       await signUp.create({
         firstName: firstName,
         lastName: lastName,

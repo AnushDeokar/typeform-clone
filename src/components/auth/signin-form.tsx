@@ -17,13 +17,17 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 import { Button } from "../ui/button"
+import BeatLoader from "react-spinners/BeatLoader"
+import { useSignIn } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 
 type FormInputs = z.infer<typeof signinSchema>
 
 function SigninForm() {
+  const router = useRouter();
+  const { isLoaded, signIn, setActive } = useSignIn();
   const [isLoading, setIsLoading] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const form = useForm<FormInputs>({
@@ -34,12 +38,34 @@ function SigninForm() {
     },
   })
 
-  const onSubmit = (data: FormInputs) => {
-    setIsLoading(true)
-    console.log(data)
+  if (!isLoaded) {
+    // Add logic to handle loading state
+    return null;
+  }
+
+  const onSubmit = async (data: FormInputs) => {
+    setIsLoading(true);
+    try {
+      const res = await signIn.create({
+        identifier: data.email,
+        password: data.password,
+      })
+      console.log("res", res)
+      if (res.status === "complete") {
+        await setActive({ session: res.createdSessionId })
+
+        router.push(`${window.location.origin}/`)
+      } else {
+        console.log(res)
+      }
+
+    } catch (error){
+      console.log(error)
+    }
   }
 
   return (
+    <>
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -118,10 +144,11 @@ function SigninForm() {
           type="submit"
           disabled={isLoading}
         >
-          Login to Typeform
+          {isLoading ? <BeatLoader color="white"/> : "Login to Typeform"}
         </Button>
       </form>
     </Form>
+    </>
   )
 }
 
