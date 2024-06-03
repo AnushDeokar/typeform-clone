@@ -7,6 +7,7 @@ import MainHeaderComponent from "@/components/main/main-header"
 import ManageWorkspace from "@/components/main/manage-workspace"
 import SearchBar from "@/components/main/search-bar"
 import UpgradeBanner from "@/components/main/upgrade-banner"
+import { FaPlus } from "react-icons/fa"
 
 export default async function Home() {
   const user = await currentUser()
@@ -21,7 +22,7 @@ export default async function Home() {
       <div className="mt-2 flex w-full grow gap-1 text-[14px]">
         <div className="flex w-64 flex-col gap-1 text-secgray">
           <div className="rounded-ss-lg bg-subtle px-4 py-2">
-            <Button className="h-8 w-full py-1">Create a new form</Button>
+            <Button className="h-8 w-full py-1 inline-flex items-center gap-2"><FaPlus />Create a new form</Button>
           </div>
           <SearchBar />
           <ManageWorkspace />
