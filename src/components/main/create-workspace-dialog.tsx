@@ -1,10 +1,11 @@
 "use client"
 
 import React, { useState } from "react"
+import { type Workspace } from "@/db/schema"
 import { CiGrid41 } from "react-icons/ci"
 import { FaPlus } from "react-icons/fa"
 
-import { createWorkspace } from "@/lib/actions/main"
+import { createWorkspace } from "@/lib/actions/workspace"
 import { createWorkspaceSchema } from "@/lib/validations/workspace"
 import {
   Dialog,
@@ -20,7 +21,17 @@ import ChangeWorkspace from "@/components/main/change-workspace"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
-function ManageWorkspace({ userId }: { userId: string }) {
+interface IMangeWorkspace {
+  userId: string
+  workspaces: Workspace[]
+  setSelectedWorkspace: (v: Workspace) => void
+}
+
+function ManageWorkspace({
+  userId,
+  workspaces,
+  setSelectedWorkspace,
+}: IMangeWorkspace) {
   const [workspaceName, setWorkspaceName] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -35,15 +46,9 @@ function ManageWorkspace({ userId }: { userId: string }) {
       setErrorMessage(validationResult.error.errors[0].message)
     } else {
       setErrorMessage("")
-      // Proceed with workspace creation
       const res = await createWorkspace({ name: workspaceName, userId: userId })
-      console.log("res", res)
       setOpen(false)
     }
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
   }
 
   return (
@@ -95,7 +100,10 @@ function ManageWorkspace({ userId }: { userId: string }) {
           </DialogContent>
         </Dialog>
       </div>
-      <ChangeWorkspace />
+      <ChangeWorkspace
+        workspaces={workspaces}
+        setSelectedWorkspace={setSelectedWorkspace}
+      />
     </div>
   )
 }

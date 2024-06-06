@@ -1,10 +1,18 @@
 "use client"
 
 import React, { useState } from "react"
+import { Workspace } from "@/db/schema"
 import { motion } from "framer-motion"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa"
 
-function ChangeWorkspace() {
+interface IChangeWorkspace {
+  workspaces: Workspace[]
+  setSelectedWorkspace: (v: Workspace) => void
+}
+function ChangeWorkspace({
+  workspaces,
+  setSelectedWorkspace,
+}: IChangeWorkspace) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleToggle = () => {
@@ -30,12 +38,15 @@ function ChangeWorkspace() {
       >
         {isOpen && (
           <>
-            <div className="cursor-pointer rounded-lg px-4 py-2 hover:bg-secgraydark">
-              workspace 1
-            </div>
-            <div className="cursor-pointer rounded-lg px-4 py-2 hover:bg-secgraydark">
-              workspace 2
-            </div>
+            {workspaces.map((workspace) => (
+              <div
+                className="cursor-pointer rounded-lg px-4 py-2 hover:bg-secgraydark"
+                key={workspace.id}
+                onClick={() => setSelectedWorkspace(workspace)}
+              >
+                {workspace.name}
+              </div>
+            ))}
           </>
         )}
       </motion.div>

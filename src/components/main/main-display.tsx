@@ -1,18 +1,25 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { useRouter } from "next/navigation"
+import { type Workspace } from "@/db/schema"
 import { FaPlus } from "react-icons/fa"
 
-import { createForm } from "@/lib/actions/main"
+import { createForm } from "@/lib/actions/form"
 
 import { Button } from "../ui/button"
 import ManageWorkspace from "./create-workspace-dialog"
 import FormTable from "./form-table"
 import SearchBar from "./search-bar"
 
-function MainDisplay({ userId }: any) {
+interface IMainDisplay {
+  userId: string
+  workspaces: Workspace[]
+}
+
+function MainDisplay({ userId, workspaces }: IMainDisplay) {
   const router = useRouter()
+  const [selectedWorkspace, setSelectedWorkspace] = useState(workspaces[0])
 
   const handleCreateForm = async () => {
     const response = await createForm({
@@ -37,7 +44,11 @@ function MainDisplay({ userId }: any) {
           </Button>
         </div>
         <SearchBar />
-        <ManageWorkspace userId={userId} />
+        <ManageWorkspace
+          userId={userId}
+          workspaces={workspaces}
+          setSelectedWorkspace={setSelectedWorkspace}
+        />
         <div className="flex flex-col gap-2 rounded-es-lg bg-subtle p-4">
           <p className="text-black">Responses collected</p>
           <div className="h-2 w-full rounded-e-lg bg-secgraydark"></div>
@@ -51,7 +62,7 @@ function MainDisplay({ userId }: any) {
           </Button>
         </div>
       </div>
-      <FormTable />
+      <FormTable selectedWorkspace={selectedWorkspace} />
     </div>
   )
 }
