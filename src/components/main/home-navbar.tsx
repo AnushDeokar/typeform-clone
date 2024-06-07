@@ -3,7 +3,7 @@
 import React from "react"
 import Image from "next/image"
 import { useClerk } from "@clerk/nextjs"
-import { currentUser, User } from "@clerk/nextjs/server"
+import { User } from "@clerk/nextjs/server"
 
 import {
   DropdownMenu,
@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-function MainHeaderComponent({ user }: { user: User | null }) {
+function HomeNavbarComponent({ user }: { user: User | null }) {
   const { signOut } = useClerk()
 
   const email: string = user?.emailAddresses[0].emailAddress ?? "A"
@@ -60,4 +60,4 @@ function MainHeaderComponent({ user }: { user: User | null }) {
   )
 }
 
-export default MainHeaderComponent
+export default HomeNavbarComponent

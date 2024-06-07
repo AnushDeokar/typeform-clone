@@ -23,7 +23,7 @@ function MainDisplay({ userId, workspaces }: IMainDisplay) {
 
   const handleCreateForm = async () => {
     const response = await createForm({
-      workspaceId: "76261ee4-163a-497c-ad1b-64aab7555190",
+      workspaceId: selectedWorkspace.id,
       name: "My new form",
     })
     if (!response.error) {
@@ -33,7 +33,7 @@ function MainDisplay({ userId, workspaces }: IMainDisplay) {
 
   return (
     <div className="mt-2 flex w-full grow gap-1 text-[14px]">
-      <div className="flex w-64 flex-col gap-1 text-secgray">
+      <div className="hidden w-64 flex-col gap-1 text-secgray md:flex">
         <div className="rounded-ss-lg bg-subtle px-4 py-2">
           <Button
             className="inline-flex h-8 w-full items-center gap-2 py-1"

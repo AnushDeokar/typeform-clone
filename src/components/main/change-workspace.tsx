@@ -22,7 +22,7 @@ function ChangeWorkspace({
   return (
     <>
       <div
-        className="mt-2 flex cursor-pointer items-center justify-between px-4 py-2 hover:bg-secgraydark"
+        className="mt-2 flex cursor-pointer items-center justify-between rounded-md px-4 py-2 hover:bg-secgraydark"
         onClick={handleToggle}
       >
         <span className="font-semibold">Private</span>

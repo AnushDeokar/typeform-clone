@@ -3,6 +3,7 @@ import Link from "next/link"
 import { FcGoogle } from "react-icons/fc"
 
 import { Button } from "@/components/ui/button"
+import Oauthform from "@/components/auth/oauth-form"
 import SigninForm from "@/components/auth/signin-form"
 
 function page() {
@@ -29,10 +30,7 @@ function page() {
             <span className="text-secondary-muted bg-background px-2">Or</span>
           </div>
         </div>
-        <Button variant="outline" className="text-light flex rounded-sm">
-          <FcGoogle size={20} />{" "}
-          <span className="flex grow justify-center">Login with Google</span>
-        </Button>
+        <Oauthform />
       </div>
     </main>
   )
