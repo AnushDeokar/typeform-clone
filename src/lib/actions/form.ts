@@ -1,8 +1,8 @@
 "use server"
 
 import db from "@/db/drizzle"
-import { forms, type Form } from "@/db/schema"
-import { eq } from "drizzle-orm"
+import { forms, workspaces, type Form } from "@/db/schema"
+import { and, eq, ilike } from "drizzle-orm"
 
 import { getErrorMessage } from "../utils"
 
@@ -35,5 +35,25 @@ export const getFormsByWorkspaceId = async (
     where: eq(forms.workspaceId, workspaceId),
   })
 
+  return data
+}
+
+export const searchForms = async (
+  userId: string,
+  searchParam: string
+): Promise<Form[]> => {
+  const data = await db
+    .select({
+      id: forms.id,
+      name: forms.name,
+      workspaceId: forms.workspaceId,
+      createdAt: forms.createdAt,
+      updatedAt: forms.updatedAt,
+    })
+    .from(forms)
+    .innerJoin(workspaces, eq(forms.workspaceId, workspaces.id))
+    .where(
+      and(ilike(forms.name, `%${searchParam}%`), eq(workspaces.userId, userId))
+    )
   return data
 }

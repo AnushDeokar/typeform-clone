@@ -43,7 +43,7 @@ function MainDisplay({ userId, workspaces }: IMainDisplay) {
             Create a new form
           </Button>
         </div>
-        <SearchBar />
+        <SearchBar userId={userId} />
         <ManageWorkspace
           userId={userId}
           workspaces={workspaces}

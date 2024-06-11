@@ -2,9 +2,13 @@
 
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { Form } from "@/db/schema"
 import { CiSearch } from "react-icons/ci"
 import { HiOutlineDocumentReport } from "react-icons/hi"
 
+import { searchForms } from "@/lib/actions/form"
+import { cn } from "@/lib/utils"
+import useDebounce from "@/hooks/use-debounce"
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,29 +16,37 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-} from "../ui/command"
+} from "@/components/ui/command"
+import { Skeleton } from "@/components/ui/skeleton"
 
-function SearchBar() {
+function SearchBar({ userId }: { userId: string }) {
   const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
-      }
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+  const [searchParam, setSearchParam] = useState<string>("")
+  const debouncedSearchParam = useDebounce(searchParam, 2000)
+  const [forms, setForms] = useState<Form[]>([])
 
   const runCommand = React.useCallback((command: () => unknown) => {
     setOpen(false)
     command()
   }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true)
+      if (debouncedSearchParam.length >= 1) {
+        const data = await searchForms(userId, debouncedSearchParam)
+        setForms(data)
+        console.log(forms)
+      } else {
+        setForms([])
+      }
+      setIsLoading(false)
+    }
+
+    fetchData()
+  }, [debouncedSearchParam, userId])
 
   return (
     <>
@@ -46,52 +58,48 @@ function SearchBar() {
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
+          value={searchParam}
           placeholder="Search Forms ..."
-          // onValueChange={optimizedFn}
+          onValueChange={(v) => {
+            setIsLoading(true)
+            setSearchParam(v)
+          }}
+          className="border-none"
         />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          {!isLoading && (
+          {searchParam && !isLoading && (
+            <CommandEmpty>No results found.</CommandEmpty>
+          )}
+          {isLoading && (
+            <div className="space-y-1 overflow-hidden px-1 py-2">
+              <Skeleton className="h-4 w-10 rounded" />
+              <Skeleton className="h-8 rounded-sm" />
+              <Skeleton className="h-8 rounded-sm" />
+            </div>
+          )}
+          {!isLoading && forms.length > 0 && (
             <>
               {["forms"].map((t, i) => (
                 <CommandGroup heading={t} key={i}>
-                  {[1, 2, 3, 4, 5].map((blog, ind) => (
+                  {forms.map((form, ind) => (
                     <CommandItem
-                      key={ind}
-                      value={ind.toString()}
+                      key={form.id}
+                      value={form.name.toString()}
                       onSelect={() => {
                         runCommand(() => {
-                          router.push(`/blog/${ind}`)
+                          router.push(`/form/${form.id}`)
                         })
                       }}
+                      className="hover:bg-red mx-1 my-2 cursor-pointer bg-white"
                     >
                       <HiOutlineDocumentReport />
-                      {blog}
+                      {form.name}
                     </CommandItem>
                   ))}
                 </CommandGroup>
               ))}
             </>
           )}
-          {/* {docsConfig.sidebarNav.map((group) => (
-            <CommandGroup key={group.title} heading={group.title}>
-              {group.items.map((navItem) => (
-                <CommandItem
-                  key={navItem.href}
-                  value={navItem.title}
-                  onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string));
-                  }}
-                >
-                  <div className="mr-2 flex h-4 w-4 items-center justify-center">
-                    <CircleIcon className="h-3 w-3" />
-                  </div>
-                  {navItem.title}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          ))} */}
-          <CommandSeparator />
         </CommandList>
       </CommandDialog>
     </>
