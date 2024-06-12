@@ -149,9 +149,9 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
         {displayMode === "list" && (
           <div className="flex items-center gap-4 text-[12px]">
             <div className="grow"></div>
-            <div className="w-24">Responses</div>
-            <div className="w-24">Completion</div>
-            <div className="w-24">Updated</div>
+            <div className="w-24 text-center">Responses</div>
+            <div className="w-24 text-center">Completion</div>
+            <div className="w-24 text-center">Updated</div>
             <div className="w-12"></div>
           </div>
         )}
@@ -171,10 +171,12 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
                 <div className="h-8 w-8 rounded-sm bg-blue-700"></div>
                 <span>{form.name}</span>
               </div>
-              <div className="w-24">-</div>
-              <div className="w-24">-</div>
-              <div className="w-24">{formatDate(form.createdAt)}</div>
-              <FormActionsComponent formId={form.id} />
+              <div className="w-24 text-center">-</div>
+              <div className="w-24 text-center">-</div>
+              <div className="w-24 text-center">
+                {formatDate(form.createdAt)}
+              </div>
+              <FormActionsComponent form={form} setForms={setForms} />
             </div>
           ))
         ) : (

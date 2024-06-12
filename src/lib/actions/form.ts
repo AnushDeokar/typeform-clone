@@ -57,3 +57,25 @@ export const searchForms = async (
     )
   return data
 }
+
+export const deleteFormById = async (formId: string): Promise<any> => {
+  const data = await db.delete(forms).where(eq(forms.id, formId))
+  console.log("deleted", data)
+  return data
+}
+
+export const renameForm = async (
+  formId: string,
+  name: string
+): Promise<any> => {
+  try {
+    const data = await db
+      .update(forms)
+      .set({ name: name })
+      .where(eq(forms.id, formId))
+    return true
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+}
