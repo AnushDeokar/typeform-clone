@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { IoDiamondOutline } from "react-icons/io5"
 import { RxCross2 } from "react-icons/rx"
 
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 
 function UpgradeBanner() {
   const [display, setDisplay] = useState(true)

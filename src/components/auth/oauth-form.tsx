@@ -2,11 +2,10 @@
 
 import * as React from "react"
 import { useSignIn } from "@clerk/nextjs"
-import { isClerkAPIResponseError } from "@clerk/nextjs/errors"
 import { type OAuthStrategy } from "@clerk/types"
 import { FcGoogle } from "react-icons/fc"
 
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 
 function Oauthform() {
   const [isLoading, setIsLoading] = React.useState<OAuthStrategy | null>(null)

@@ -8,12 +8,14 @@ import { FaCaretDown, FaCaretUp } from "react-icons/fa"
 interface IChangeWorkspace {
   workspaces: Workspace[]
   setSelectedWorkspace: (v: Workspace) => void
+  selectedWorkspace: Workspace
 }
 function ChangeWorkspace({
   workspaces,
   setSelectedWorkspace,
+  selectedWorkspace,
 }: IChangeWorkspace) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
   const handleToggle = () => {
     setIsOpen(!isOpen)
@@ -40,7 +42,7 @@ function ChangeWorkspace({
           <>
             {workspaces.map((workspace) => (
               <div
-                className="cursor-pointer rounded-lg px-4 py-2 hover:bg-secgraydark"
+                className={`cursor-pointer rounded-lg px-4 py-2 hover:bg-secgraydark ${selectedWorkspace.id === workspace.id ? " bg-secgraydark" : ""}`}
                 key={workspace.id}
                 onClick={() => setSelectedWorkspace(workspace)}
               >

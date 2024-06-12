@@ -7,6 +7,7 @@ import { FaPlus } from "react-icons/fa"
 
 import { createWorkspace } from "@/lib/actions/workspace"
 import { createWorkspaceSchema } from "@/lib/validations/workspace"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogClose,
@@ -16,21 +17,21 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
 import ChangeWorkspace from "@/components/main/change-workspace"
-
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
 
 interface IMangeWorkspace {
   userId: string
   workspaces: Workspace[]
   setSelectedWorkspace: (v: Workspace) => void
+  selectedWorkspace: Workspace
 }
 
 function ManageWorkspace({
   userId,
   workspaces,
   setSelectedWorkspace,
+  selectedWorkspace,
 }: IMangeWorkspace) {
   const [workspaceName, setWorkspaceName] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
@@ -101,6 +102,7 @@ function ManageWorkspace({
         </Dialog>
       </div>
       <ChangeWorkspace
+        selectedWorkspace={selectedWorkspace}
         workspaces={workspaces}
         setSelectedWorkspace={setSelectedWorkspace}
       />

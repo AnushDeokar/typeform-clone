@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
+import { Toaster } from "react-hot-toast"
 
 import "./globals.css"
 
@@ -22,7 +23,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <Toaster position="bottom-center" />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   )

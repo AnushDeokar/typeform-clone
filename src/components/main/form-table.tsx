@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { Form, Workspace, workspaces } from "@/db/schema"
+import { Form, Workspace } from "@/db/schema"
 import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -15,18 +15,15 @@ import { MdOutlineDateRange } from "react-icons/md"
 import { RxGrid } from "react-icons/rx"
 
 import { getFormsByWorkspaceId } from "@/lib/actions/form"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Skeleton } from "@/components/ui/skeleton"
 
-import { Button } from "../ui/button"
-import { Skeleton } from "../ui/skeleton"
+import FormActionsComponent from "./form-actions"
 
 const sortOptions = [
   {
@@ -155,13 +152,14 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
             <div className="w-24">Responses</div>
             <div className="w-24">Completion</div>
             <div className="w-24">Updated</div>
+            <div className="w-12"></div>
           </div>
         )}
         {loading ? (
           <>
-            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2  bg-forge py-2 hover:shadow-md" />
-            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-forge py-2 hover:shadow-md" />
-            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-forge py-2 hover:shadow-md" />
+            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2  bg-white py-2 hover:shadow-md" />
+            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md" />
+            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md" />
           </>
         ) : forms.length > 0 && displayMode === "list" ? (
           forms.map((form) => (
@@ -176,6 +174,7 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
               <div className="w-24">-</div>
               <div className="w-24">-</div>
               <div className="w-24">{formatDate(form.createdAt)}</div>
+              <FormActionsComponent formId={form.id} />
             </div>
           ))
         ) : (

@@ -6,8 +6,8 @@ import { type Workspace } from "@/db/schema"
 import { FaPlus } from "react-icons/fa"
 
 import { createForm } from "@/lib/actions/form"
+import { Button } from "@/components/ui/button"
 
-import { Button } from "../ui/button"
 import ManageWorkspace from "./create-workspace-dialog"
 import FormTable from "./form-table"
 import SearchBar from "./search-bar"
@@ -45,6 +45,7 @@ function MainDisplay({ userId, workspaces }: IMainDisplay) {
         </div>
         <SearchBar userId={userId} />
         <ManageWorkspace
+          selectedWorkspace={selectedWorkspace}
           userId={userId}
           workspaces={workspaces}
           setSelectedWorkspace={setSelectedWorkspace}
