@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Skeleton } from "@/components/ui/skeleton"
 
+import CreateFormButton from "./create-form-button"
 import FormActionsComponent from "./form-actions"
 
 const sortOptions = [
@@ -145,62 +146,71 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
           </div>
         </div>
       </div>
-      <div className="px-8 py-2 text-secgray">
-        {displayMode === "list" && (
-          <div className="flex items-center gap-4 text-[12px]">
-            <div className="grow"></div>
-            <div className="w-24 text-center">Responses</div>
-            <div className="w-24 text-center">Completion</div>
-            <div className="w-24 text-center">Updated</div>
-            <div className="w-12"></div>
-          </div>
-        )}
-        {loading ? (
-          <>
-            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2  bg-white py-2 hover:shadow-md" />
-            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md" />
-            <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md" />
-          </>
-        ) : forms.length > 0 && displayMode === "list" ? (
-          forms.map((form) => (
-            <div
-              className="mt-4 flex w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md"
-              key={form.id}
-            >
-              <div className="flex grow items-center gap-2 px-4 font-semibold text-black">
-                <div className="h-8 w-8 rounded-sm bg-blue-700"></div>
-                <span>{form.name}</span>
-              </div>
-              <div className="w-24 text-center">-</div>
-              <div className="w-24 text-center">-</div>
-              <div className="w-24 text-center">
-                {formatDate(form.createdAt)}
-              </div>
-              <FormActionsComponent
-                form={form}
-                setForms={setForms}
-                forms={forms}
-              />
+      {forms.length > 0 ? (
+        <div className="px-8 py-2 text-secgray">
+          {displayMode === "list" && forms.length > 0 && (
+            <div className="flex items-center gap-4 text-[12px]">
+              <div className="grow"></div>
+              <div className="w-24 text-center">Responses</div>
+              <div className="w-24 text-center">Completion</div>
+              <div className="w-24 text-center">Updated</div>
+              <div className="w-12"></div>
             </div>
-          ))
-        ) : (
-          forms.length > 0 &&
-          displayMode === "grid" && (
-            <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
-              {forms.map((form) => (
-                <div
-                  className="mt-4  flex h-52 w-full flex-col gap-2 rounded-lg border-2 bg-white px-4 py-4 hover:shadow-md"
-                  key={form.id}
-                >
-                  <div className="grow"></div>
-                  <div className="font-semibold text-black ">{form.name}</div>
-                  <div className="w-24">{formatDate(form.createdAt)}</div>
+          )}
+          {loading ? (
+            <>
+              <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2  bg-white py-2 hover:shadow-md" />
+              <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md" />
+              <Skeleton className="mt-4 flex h-12 w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md" />
+            </>
+          ) : forms.length > 0 && displayMode === "list" ? (
+            forms.map((form) => (
+              <div
+                className="mt-4 flex w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md"
+                key={form.id}
+              >
+                <div className="flex grow items-center gap-2 px-4 font-semibold text-black">
+                  <div className="h-8 w-8 rounded-sm bg-blue-700"></div>
+                  <span>{form.name}</span>
                 </div>
-              ))}
-            </div>
-          )
-        )}
-      </div>
+                <div className="w-24 text-center">-</div>
+                <div className="w-24 text-center">-</div>
+                <div className="w-24 text-center">
+                  {formatDate(form.createdAt)}
+                </div>
+                <FormActionsComponent
+                  form={form}
+                  setForms={setForms}
+                  forms={forms}
+                />
+              </div>
+            ))
+          ) : (
+            forms.length > 0 &&
+            displayMode === "grid" && (
+              <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
+                {forms.map((form) => (
+                  <div
+                    className="mt-4  flex h-52 w-full flex-col gap-2 rounded-lg border-2 bg-white px-4 py-4 hover:shadow-md"
+                    key={form.id}
+                  >
+                    <div className="grow"></div>
+                    <div className="font-semibold text-black ">{form.name}</div>
+                    <div className="w-24">{formatDate(form.createdAt)}</div>
+                  </div>
+                ))}
+              </div>
+            )
+          )}
+        </div>
+      ) : (
+        <div className="mt-32 flex h-full w-full justify-center text-2xl font-bold">
+          <div className="flex flex-col gap-4">
+            <p> No forms in this workspace</p>
+            <CreateFormButton workspaceId={selectedWorkspace.id} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

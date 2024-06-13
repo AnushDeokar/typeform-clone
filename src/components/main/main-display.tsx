@@ -8,6 +8,7 @@ import { FaPlus } from "react-icons/fa"
 import { createForm } from "@/lib/actions/form"
 import { Button } from "@/components/ui/button"
 
+import CreateFormButton from "./create-form-button"
 import ManageWorkspace from "./create-workspace-dialog"
 import FormTable from "./form-table"
 import SearchBar from "./search-bar"
@@ -35,13 +36,7 @@ function MainDisplay({ userId, workspaces }: IMainDisplay) {
     <div className="mt-2 flex w-full grow gap-1 text-[14px]">
       <div className="hidden w-64 flex-col gap-1 text-secgray md:flex">
         <div className="rounded-ss-lg bg-subtle px-4 py-2">
-          <Button
-            className="inline-flex h-8 w-full items-center gap-2 py-1"
-            onClick={handleCreateForm}
-          >
-            <FaPlus />
-            Create a new form
-          </Button>
+          <CreateFormButton workspaceId={selectedWorkspace.id} />
         </div>
         <SearchBar userId={userId} />
         <ManageWorkspace
