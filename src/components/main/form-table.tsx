@@ -176,7 +176,11 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
               <div className="w-24 text-center">
                 {formatDate(form.createdAt)}
               </div>
-              <FormActionsComponent form={form} setForms={setForms} />
+              <FormActionsComponent
+                form={form}
+                setForms={setForms}
+                forms={forms}
+              />
             </div>
           ))
         ) : (

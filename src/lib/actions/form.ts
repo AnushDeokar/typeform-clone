@@ -58,12 +58,6 @@ export const searchForms = async (
   return data
 }
 
-export const deleteFormById = async (formId: string): Promise<any> => {
-  const data = await db.delete(forms).where(eq(forms.id, formId))
-  console.log("deleted", data)
-  return data
-}
-
 export const renameForm = async (
   formId: string,
   name: string
@@ -77,5 +71,25 @@ export const renameForm = async (
   } catch (err) {
     console.log(err)
     return false
+  }
+}
+
+export const deleteFormById = async (formId: string): Promise<any> => {
+  try {
+    if (!formId) {
+      throw new Error("formId not found, please try again.")
+    }
+
+    const data = await db.delete(forms).where(eq(forms.id, formId))
+
+    return {
+      data: data,
+      error: null,
+    }
+  } catch (err) {
+    return {
+      data: null,
+      error: getErrorMessage(err),
+    }
   }
 }

@@ -24,12 +24,12 @@ import ChangeWorkspace from "@/components/main/change-workspace"
 
 interface IRenameForm {
   form: Form
+  forms: Form[]
   setForms: (v: Form[]) => void
-  open: boolean
   setOpen: (v: boolean) => void
 }
 
-function RenameFormDialog({ form, setForms, open, setOpen }: IRenameForm) {
+function RenameFormDialog({ form, forms, setForms, setOpen }: IRenameForm) {
   const [formName, setformName] = useState(form.name)
   const [errorMessage, setErrorMessage] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -44,6 +44,10 @@ function RenameFormDialog({ form, setForms, open, setOpen }: IRenameForm) {
     } else {
       setErrorMessage("")
       const success = await renameForm(form.id, formName)
+      if (success) {
+        const updatedForm = { ...form, name: formName }
+        setForms(forms.map((f) => (f.id === form.id ? updatedForm : f)))
+      }
       setOpen(false)
     }
   }
@@ -58,7 +62,7 @@ function RenameFormDialog({ form, setForms, open, setOpen }: IRenameForm) {
       <div className="grid gap-4 py-4">
         <Input
           id="name"
-          placeholder="Name your workspace"
+          placeholder="Eg. Aweshome survey"
           className="col-span-3"
           value={formName}
           onChange={(e) => setformName(e.target.value)}
