@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { Form, Workspace } from "@/db/schema"
 import {
   DropdownMenuRadioGroup,
@@ -55,6 +56,7 @@ const formatDate = (dateString: Date | null) => {
 }
 
 function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
+  const router = useRouter()
   const [position, setPosition] = React.useState(0)
   const [forms, setForms] = useState<Form[]>([])
   const [loading, setLoading] = useState(true)
@@ -82,7 +84,6 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
 
   useEffect(() => {
     const fetchForms = async () => {
-      setLoading(true)
       const data = await getFormsByWorkspaceId(selectedWorkspace.id)
       setForms(data)
       setLoading(false)
@@ -146,7 +147,7 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
           </div>
         </div>
       </div>
-      {forms.length > 0 ? (
+      {forms.length > 0 || loading ? (
         <div className="px-8 py-2 text-secgray">
           {displayMode === "list" && forms.length > 0 && (
             <div className="flex items-center gap-4 text-[12px]">
@@ -168,6 +169,7 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
               <div
                 className="mt-4 flex w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md"
                 key={form.id}
+                onClick={() => router.push(`/form/${form.id}`)}
               >
                 <div className="flex grow items-center gap-2 px-4 font-semibold text-black">
                   <div className="h-8 w-8 rounded-sm bg-blue-700"></div>
@@ -204,12 +206,14 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
           )}
         </div>
       ) : (
-        <div className="mt-32 flex h-full w-full justify-center text-2xl font-bold">
-          <div className="flex flex-col gap-4">
-            <p> No forms in this workspace</p>
-            <CreateFormButton workspaceId={selectedWorkspace.id} />
+        !loading && (
+          <div className="mt-32 flex h-full w-full justify-center text-2xl font-bold">
+            <div className="flex flex-col gap-4">
+              <p> No forms in this workspace</p>
+              <CreateFormButton workspaceId={selectedWorkspace.id} />
+            </div>
           </div>
-        </div>
+        )
       )}
     </div>
   )
