@@ -7,7 +7,7 @@ import FormNavbar from "@/components/form/form-navbar"
 async function FormPageLayout({ children }: { children: React.ReactNode }) {
   const user = await currentUser()
   if (!user || !user.id) {
-    redirect(`${window.location.origin}/signin`)
+    redirect("/signin")
   }
   return (
     <main className="flex min-h-screen flex-col items-center px-4">

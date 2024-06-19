@@ -30,7 +30,7 @@ function QuestionsPanel() {
   )
 
   return (
-    <div className="md:flex hidden max-h-full flex-col items-center gap-4 p-2">
+    <div className="hidden max-h-full flex-col items-center gap-4 p-2 md:flex">
       <div
         className="w-60 grow flex-col gap-1 overflow-auto rounded-xl bg-forge p-4"
         style={{ height }}
