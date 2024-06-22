@@ -2,6 +2,7 @@
 
 import React, { MouseEvent, useCallback, useState } from "react"
 import { FaPlus } from "react-icons/fa"
+import { LuText } from "react-icons/lu"
 
 import { Button } from "@/components/ui/button"
 
@@ -32,14 +33,26 @@ function QuestionsPanel() {
   return (
     <div className="hidden max-h-full flex-col items-center gap-4 p-2 md:flex">
       <div
-        className="w-60 grow flex-col gap-1 overflow-auto rounded-xl bg-forge p-4"
+        className="w-60 grow flex-col gap-2 overflow-auto rounded-xl bg-forge p-4 text-[13px] text-secgray"
         style={{ height }}
       >
-        <div className="cursor-pointer rounded-lg bg-secgraydark p-[10px] text-[13px] text-secgray">
-          Test question
+        <div className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]">
+          <div
+            className="flex w-12 items-center justify-center justify-between rounded-md p-1"
+            style={{ backgroundColor: "#afd5f3" }}
+          >
+            <LuText /> <span>1</span>
+          </div>
+          <span>Test question</span>
         </div>
-        <div className="cursor-pointer rounded-lg p-[10px] text-[13px] text-secgray hover:bg-secgraydark/40">
-          Test question
+        <div className="flex cursor-pointer items-center  gap-1 rounded-lg p-[10px] hover:bg-secgraydark/40">
+          <div
+            className="flex w-12 items-center justify-center justify-between rounded-md p-1"
+            style={{ backgroundColor: "#afd5f3" }}
+          >
+            <LuText /> <span>2</span>
+          </div>
+          <span>Test question</span>
         </div>
       </div>
       <div

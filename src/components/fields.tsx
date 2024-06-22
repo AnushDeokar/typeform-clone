@@ -25,7 +25,7 @@ export const FIELDS = [
   },
   {
     type: "LONG_TEXT",
-    name: "Short Text",
+    name: "Long Text",
     group: "TEXT",
     dataType: "string",
     icon: <LuText />,

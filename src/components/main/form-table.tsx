@@ -193,7 +193,7 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
               <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2  lg:grid-cols-3">
                 {forms.map((form) => (
                   <div
-                    className="mt-4  flex h-52 w-full flex-col gap-2 rounded-lg border-2 bg-white px-4 py-4 hover:shadow-md"
+                    className="mt-4  flex h-52 w-full cursor-pointer flex-col gap-2 rounded-lg border-2 bg-white px-4 py-4 hover:shadow-md"
                     key={form.id}
                   >
                     <div className="grow"></div>
