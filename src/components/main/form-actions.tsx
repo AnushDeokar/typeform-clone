@@ -45,7 +45,7 @@ function FormActionsComponent({
     () => [
       {
         label: "Open",
-        onClick: () => router.push(`/form/${form.id}`),
+        onClick: () => router.push(`/form/${form.id}/create`),
       },
       {
         label: "Copy Link",

@@ -10,6 +10,7 @@ import { PiSlideshowFill } from "react-icons/pi"
 import { RiArrowDropDownLine } from "react-icons/ri"
 import { TbListLetters } from "react-icons/tb"
 import { TfiLayoutSliderAlt } from "react-icons/tfi"
+import { z } from "zod"
 
 const ShortTextSettings = dynamic(() => import("./settings/short-text"))
 
@@ -129,7 +130,24 @@ export const FIELDS = [
   },
 ]
 
-export const QUESTIONTYPES = [
+export const FIELD_TYPES = [
+  "SHORT_TEXT",
+  "LONG_TEXT",
+  "PHONE_NUMBER",
+  "EMAIL",
+  "ADDRESS",
+  "WEBSITE",
+  "MULTIPLE_CHOICE",
+  "DROPDOWN",
+  "RATING",
+  "NUMBER",
+  "WELCOME",
+  "END",
+] as const
+type fieldTypekey = (typeof FIELD_TYPES)[number]
+export const TYPE_OF_FIELDS: z.ZodType<fieldTypekey> = z.enum(FIELD_TYPES)
+
+export const QUESTION_TYPES = [
   {
     type: "TEXT",
     name: "Text",

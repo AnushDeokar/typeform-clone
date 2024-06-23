@@ -3,6 +3,8 @@
 import React from "react"
 import { FiPlus } from "react-icons/fi"
 
+import { addQuestion } from "@/lib/actions/question"
+import { type AddQuestionSchema } from "@/lib/validations/question"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -12,9 +14,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { FIELDS, QUESTIONTYPES } from "../fields"
+import { FIELDS, QUESTION_TYPES } from "../fields"
 
 function AddContentDialog() {
+  const handleAddQuestion = async (questionType: any) => {
+    const input: AddQuestionSchema = {
+      text: "",
+      order: 1,
+      type: questionType,
+      formId: "7d1dbf0b-2e4a-42da-88b0-2e5c039286ba",
+    }
+    const res = await addQuestion(input)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,7 +39,7 @@ function AddContentDialog() {
         <DialogHeader>
           <DialogTitle className="mb-4">Add Content</DialogTitle>
           <div className="mt-4 grid grid-cols-1 gap-8 rounded-lg bg-white p-4 text-sm md:grid-cols-2 lg:grid-cols-3">
-            {QUESTIONTYPES.map((t) => (
+            {QUESTION_TYPES.map((t) => (
               <div className="flex flex-col gap-2" key={t.name}>
                 <h4 className="font-semibold">{t.name}</h4>
                 {FIELDS.filter((f) => f.group === t.type).map((f, i) => (
@@ -42,6 +54,7 @@ function AddContentDialog() {
                         width: "30px",
                         height: "30px",
                       }}
+                      onClick={() => handleAddQuestion(f.type)}
                     >
                       {f.icon}
                     </div>

@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm"
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import {
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core"
 
 export const workspaces = pgTable("workspaces", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -23,9 +30,25 @@ export const forms = pgTable("forms", {
 
 export type Form = typeof forms.$inferSelect
 
-export const formsRelation = relations(forms, ({ one }) => ({
+export const formsRelation = relations(forms, ({ one, many }) => ({
   workspace: one(workspaces, {
     fields: [forms.workspaceId],
     references: [workspaces.id],
+  }),
+  questions: many(questions),
+}))
+
+export const questions = pgTable("questions", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  text: text("name").notNull(),
+  type: text("type").notNull(),
+  order: integer("order").notNull(),
+  formId: uuid("form_id").notNull(),
+})
+
+export const questionsRelation = relations(questions, ({ one }) => ({
+  form: one(forms, {
+    fields: [questions.formId],
+    references: [forms.id],
   }),
 }))

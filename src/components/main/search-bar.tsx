@@ -87,7 +87,7 @@ function SearchBar({ userId }: { userId: string }) {
                       value={form.name.toString()}
                       onSelect={() => {
                         runCommand(() => {
-                          router.push(`/form/${form.id}`)
+                          router.push(`/form/${form.id}/create`)
                         })
                       }}
                       className="hover:bg-red mx-1 my-2 cursor-pointer bg-white"
