@@ -1,13 +1,33 @@
 "use client"
 
-import React, { MouseEvent, useCallback, useState } from "react"
+import React, {
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
+import { Question } from "@/db/schema"
+import { useQuestionStore } from "@/stores/question"
 import { FaPlus } from "react-icons/fa"
 import { LuText } from "react-icons/lu"
 
 import { Button } from "@/components/ui/button"
 
-function QuestionsPanel() {
-  const [height, setHeight] = useState<number>(500) // initial height for the first div
+import { FIELDS, QUESTION_TYPES } from "../fields"
+
+const getFieldTypeAttributes = (type: string) => {
+  const field = FIELDS.find((f) => f.type === type)
+  const questionType = QUESTION_TYPES.find((q) => q.type === field?.group)
+  return {
+    icon: field ? field.icon : <LuText />,
+    color: questionType ? questionType.color : "#afd5f3",
+  }
+}
+
+function QuestionsPanel({ questions }: { questions: Question[] }) {
+  const [height, setHeight] = useState<number>(500)
+  const { selectedQuestion, setSelectedQuestion } = useQuestionStore()
 
   const handleMouseDown = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
@@ -30,30 +50,49 @@ function QuestionsPanel() {
     [height]
   )
 
+  useEffect(() => {
+    if (questions.length > 0 && !selectedQuestion) {
+      setSelectedQuestion(questions[0])
+    }
+  }, [])
+
   return (
     <div className="hidden max-h-full flex-col items-center gap-4 p-2 md:flex">
       <div
         className="w-60 grow flex-col gap-2 overflow-auto rounded-xl bg-forge p-4 text-[13px] text-secgray"
         style={{ height }}
       >
-        <div className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]">
-          <div
-            className="flex w-12 items-center justify-center justify-between rounded-md p-1"
-            style={{ backgroundColor: "#afd5f3" }}
-          >
-            <LuText /> <span>1</span>
-          </div>
-          <span>Test question</span>
-        </div>
-        <div className="flex cursor-pointer items-center  gap-1 rounded-lg p-[10px] hover:bg-secgraydark/40">
-          <div
-            className="flex w-12 items-center justify-center justify-between rounded-md p-1"
-            style={{ backgroundColor: "#afd5f3" }}
-          >
-            <LuText /> <span>2</span>
-          </div>
-          <span>Test question</span>
-        </div>
+        {selectedQuestion &&
+          questions.map((question) => {
+            const { icon, color } = getFieldTypeAttributes(question.type)
+            return question.id === selectedQuestion?.id ? (
+              <div
+                className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]"
+                key={question.id}
+              >
+                <div
+                  className="flex w-12 items-center justify-center justify-between rounded-md p-1"
+                  style={{ backgroundColor: color }}
+                >
+                  {icon} <span>{question.order}</span>
+                </div>
+                <span>{question.text}</span>
+              </div>
+            ) : (
+              <div
+                className="flex cursor-pointer items-center gap-1 rounded-lg p-[10px] hover:bg-secgraydark/40"
+                key={question.id}
+              >
+                <div
+                  className="flex w-12 items-center justify-center justify-between rounded-md p-1"
+                  style={{ backgroundColor: color }}
+                >
+                  {icon} <span>{question.order}</span>
+                </div>
+                <span>{question.text}</span>
+              </div>
+            )
+          })}
       </div>
       <div
         className="h-1 w-8 cursor-row-resize rounded-lg bg-black"

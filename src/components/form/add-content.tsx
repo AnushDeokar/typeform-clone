@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { FiPlus } from "react-icons/fi"
 
 import { addQuestion } from "@/lib/actions/question"
@@ -16,19 +16,24 @@ import {
 
 import { FIELDS, QUESTION_TYPES } from "../fields"
 
-function AddContentDialog() {
+function AddContentDialog({ formId }: { formId: string }) {
+  const [open, setOpen] = useState(false)
+
   const handleAddQuestion = async (questionType: any) => {
     const input: AddQuestionSchema = {
       text: "",
       order: 1,
       type: questionType,
-      formId: "7d1dbf0b-2e4a-42da-88b0-2e5c039286ba",
+      formId: formId,
     }
     const res = await addQuestion(input)
+    if (!res.error) {
+      setOpen(false)
+    }
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="flex h-8 items-center gap-2">
           <FiPlus />
@@ -46,6 +51,7 @@ function AddContentDialog() {
                   <div
                     className="flex cursor-pointer items-center gap-4 rounded-md p-2 text-secgray hover:bg-secgraydark"
                     key={i}
+                    onClick={() => handleAddQuestion(f.type)}
                   >
                     <div
                       className="flex aspect-square w-6 items-center justify-center rounded-md"
@@ -54,7 +60,6 @@ function AddContentDialog() {
                         width: "30px",
                         height: "30px",
                       }}
-                      onClick={() => handleAddQuestion(f.type)}
                     >
                       {f.icon}
                     </div>

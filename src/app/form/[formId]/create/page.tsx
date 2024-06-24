@@ -4,6 +4,7 @@ import db from "@/db/drizzle"
 import { forms } from "@/db/schema"
 import { eq } from "drizzle-orm"
 
+import { getQuestionByFormId } from "@/lib/actions/question"
 import FormDisplay from "@/components/form/form-display"
 import FormSettings from "@/components/form/form-settings"
 import QuestionsPanel from "@/components/form/questions-panel"
@@ -28,10 +29,13 @@ async function FormPage({ params }: { params: IFormPage["params"] }) {
   if (!form) {
     return notFound()
   }
+
+  const questions = await getQuestionByFormId(form.id)
+
   return (
     <div className="flex w-full grow gap-1 pb-4">
-      <QuestionsPanel />
-      <FormDisplay />
+      <QuestionsPanel questions={questions} />
+      <FormDisplay form={form} />
       <FormSettings />
     </div>
   )

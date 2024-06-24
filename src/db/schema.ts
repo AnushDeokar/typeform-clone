@@ -40,11 +40,13 @@ export const formsRelation = relations(forms, ({ one, many }) => ({
 
 export const questions = pgTable("questions", {
   id: uuid("id").defaultRandom().primaryKey(),
-  text: text("name").notNull(),
+  text: text("text").notNull(),
   type: text("type").notNull(),
   order: integer("order").notNull(),
   formId: uuid("form_id").notNull(),
 })
+
+export type Question = typeof questions.$inferSelect
 
 export const questionsRelation = relations(questions, ({ one }) => ({
   form: one(forms, {
