@@ -27,7 +27,12 @@ const getFieldTypeAttributes = (type: string) => {
 
 function QuestionsPanel({ questions }: { questions: Question[] }) {
   const [height, setHeight] = useState<number>(500)
-  const { selectedQuestion, setSelectedQuestion } = useQuestionStore()
+  const {
+    selectedQuestion,
+    setSelectedQuestion,
+    setQuestionList,
+    questionList,
+  } = useQuestionStore()
 
   const handleMouseDown = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
@@ -53,6 +58,7 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
   useEffect(() => {
     if (questions.length > 0 && !selectedQuestion) {
       setSelectedQuestion(questions[0])
+      setQuestionList(questions)
     }
   }, [])
 
@@ -63,25 +69,26 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
         style={{ height }}
       >
         {selectedQuestion &&
-          questions.map((question) => {
+          questionList.map((question) => {
             const { icon, color } = getFieldTypeAttributes(question.type)
             return question.id === selectedQuestion?.id ? (
               <div
                 className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]"
-                key={question.id}
+                key={selectedQuestion.id}
               >
                 <div
                   className="flex w-12 items-center justify-center justify-between rounded-md p-1"
                   style={{ backgroundColor: color }}
                 >
-                  {icon} <span>{question.order}</span>
+                  {icon} <span>{selectedQuestion.order}</span>
                 </div>
-                <span>{question.text}</span>
+                <span>{selectedQuestion.text}</span>
               </div>
             ) : (
               <div
                 className="flex cursor-pointer items-center gap-1 rounded-lg p-[10px] hover:bg-secgraydark/40"
                 key={question.id}
+                onClick={() => setSelectedQuestion(question)}
               >
                 <div
                   className="flex w-12 items-center justify-center justify-between rounded-md p-1"

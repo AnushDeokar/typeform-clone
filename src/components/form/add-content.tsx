@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
+import { useQuestionStore } from "@/stores/question"
 import { FiPlus } from "react-icons/fi"
 
 import { addQuestion } from "@/lib/actions/question"
@@ -18,6 +19,8 @@ import { FIELDS, QUESTION_TYPES } from "../fields"
 
 function AddContentDialog({ formId }: { formId: string }) {
   const [open, setOpen] = useState(false)
+  const { questionList, setQuestionList, setSelectedQuestion } =
+    useQuestionStore()
 
   const handleAddQuestion = async (questionType: any) => {
     const input: AddQuestionSchema = {
@@ -27,7 +30,10 @@ function AddContentDialog({ formId }: { formId: string }) {
       formId: formId,
     }
     const res = await addQuestion(input)
-    if (!res.error) {
+
+    if (res.data) {
+      setQuestionList([...questionList, res.data])
+      setSelectedQuestion(res.data)
       setOpen(false)
     }
   }

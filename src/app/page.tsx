@@ -9,7 +9,7 @@ import UpgradeBanner from "@/components/main/upgrade-banner"
 export default async function Home() {
   const user = await currentUser()
   if (!user || !user.id) {
-    redirect(`${window.location.origin}/signin`)
+    redirect(`/signin`)
   }
 
   const workspaces = await getAllWorkspaces(user?.id)
