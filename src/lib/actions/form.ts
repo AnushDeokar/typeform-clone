@@ -69,7 +69,6 @@ export const renameForm = async (
       .where(eq(forms.id, formId))
     return true
   } catch (err) {
-    console.log(err)
     return false
   }
 }

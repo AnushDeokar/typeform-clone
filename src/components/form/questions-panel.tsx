@@ -25,6 +25,13 @@ const getFieldTypeAttributes = (type: string) => {
   }
 }
 
+const truncateText = (text: string, maxLength: number) => {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + "..."
+  }
+  return text
+}
+
 function QuestionsPanel({ questions }: { questions: Question[] }) {
   const [height, setHeight] = useState<number>(500)
   const {
@@ -77,12 +84,12 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
                 key={selectedQuestion.id}
               >
                 <div
-                  className="flex w-12 items-center justify-center justify-between rounded-md p-1"
+                  className="flex w-12 items-center  justify-between rounded-md p-1"
                   style={{ backgroundColor: color }}
                 >
                   {icon} <span>{selectedQuestion.order}</span>
                 </div>
-                <span>{selectedQuestion.text}</span>
+                <span>{truncateText(selectedQuestion.text, 50)}</span>
               </div>
             ) : (
               <div
@@ -91,7 +98,7 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
                 onClick={() => setSelectedQuestion(question)}
               >
                 <div
-                  className="flex w-12 items-center justify-center justify-between rounded-md p-1"
+                  className="flex w-12 items-center justify-between rounded-md p-1"
                   style={{ backgroundColor: color }}
                 >
                   {icon} <span>{question.order}</span>

@@ -53,3 +53,29 @@ export const getQuestionByFormId = async (
 
   return data
 }
+
+export const updateQuestionById = async (
+  question: Question | null
+): Promise<boolean> => {
+  try {
+    // Extract the properties needed for update
+    if (!question) {
+      return false
+    }
+    const { id, text, order } = question
+
+    await db
+      .update(questions)
+      .set({
+        text: text,
+        order: order,
+      })
+      .where(eq(questions.id, id))
+      .execute()
+
+    return true // Return true if update was successful
+  } catch (err) {
+    console.error("Error updating question:", err)
+    throw new Error(getErrorMessage(err))
+  }
+}
