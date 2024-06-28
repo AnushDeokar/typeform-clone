@@ -13,8 +13,7 @@ import { FaPlus } from "react-icons/fa"
 import { LuText } from "react-icons/lu"
 
 import { Button } from "@/components/ui/button"
-
-import { FIELDS, QUESTION_TYPES } from "../fields"
+import { FIELDS, QUESTION_TYPES } from "@/components/fields"
 
 const getFieldTypeAttributes = (type: string) => {
   const field = FIELDS.find((f) => f.type === type)

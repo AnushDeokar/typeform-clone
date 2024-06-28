@@ -14,8 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
-import { FIELDS, QUESTION_TYPES } from "../fields"
+import { FIELDS, QUESTION_TYPES } from "@/components/fields"
 
 function AddContentDialog({ formId }: { formId: string }) {
   const [open, setOpen] = useState(false)

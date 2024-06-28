@@ -5,13 +5,19 @@ import { FaArrowRight } from "react-icons/fa"
 import { updateQuestionById } from "@/lib/actions/question"
 import useDebounce from "@/hooks/use-debounce"
 
+import { FIELDS } from "../fields"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 
 function MobileInputQuestion() {
-  const { selectedQuestion, setSelectedQuestion } = useQuestionStore()
+  const {
+    selectedQuestion,
+    setSelectedQuestion,
+    setQuestionList,
+    questionList,
+  } = useQuestionStore()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const debouncedQuery = useDebounce(selectedQuestion?.text ?? "", 2000)
+  const debouncedValue = useDebounce(selectedQuestion, 2000)
 
   useEffect(() => {
     adjustTextareaHeight()
@@ -19,11 +25,19 @@ function MobileInputQuestion() {
 
   useEffect(() => {
     const saveQuestion = async () => {
-      // TODO: Debug this why not getting updated
       const isUpdated = await updateQuestionById(selectedQuestion)
+      if (isUpdated)
+        setQuestionList(
+          questionList.map((q) =>
+            selectedQuestion && q.id === selectedQuestion.id
+              ? selectedQuestion
+              : q
+          )
+        )
     }
-    saveQuestion()
-  }, [debouncedQuery])
+
+    selectedQuestion && saveQuestion()
+  }, [debouncedValue])
 
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current
@@ -47,6 +61,8 @@ function MobileInputQuestion() {
     return <div>Nothing selected</div>
   }
 
+  const selectedField = FIELDS.find((f) => f.type === selectedQuestion.type)
+
   return (
     <div className="flex w-80 flex-col justify-center border-2 p-4">
       <div className="flex">
@@ -68,7 +84,8 @@ function MobileInputQuestion() {
         />
       </div>
       <div className="px-8">
-        <h4 className="text-xl text-[#b8cae8]">Type your answer here...</h4>
+        {/* {selectedField && selectedField?.createAnswer}
+        {React.cloneElement(selectedField?.createAnswer, { key: 'foo' })} */}
       </div>
     </div>
   )

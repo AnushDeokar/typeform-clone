@@ -23,7 +23,9 @@ function UpgradeBanner() {
           Hey! Just to let you know you can collect 10 responses this month for
           free.
         </span>
-        <Button className="h-6 bg-[#ae4e09] text-xs">Get more Responses</Button>
+        <Button className="h-6 bg-[#ae4e09] text-xs hover:bg-[#754a2b]">
+          Get more Responses
+        </Button>
       </div>
       <RxCross2 onClick={() => setDisplay(false)} />
     </div>

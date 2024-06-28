@@ -12,7 +12,10 @@ import { TbListLetters } from "react-icons/tb"
 import { TfiLayoutSliderAlt } from "react-icons/tfi"
 import { z } from "zod"
 
-const ShortTextSettings = dynamic(() => import("./settings/short-text"))
+const ShortTextSettings = dynamic(() => import("./short-text/settings"))
+const ShortTextCreateAnswer = dynamic(
+  () => import("./short-text/create-answer")
+)
 
 export const FIELDS = [
   // Text
@@ -23,6 +26,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <MdOutlineShortText />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "LONG_TEXT",
@@ -31,6 +35,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <LuText />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
 
   // Contact info
@@ -41,6 +46,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <FiPhone />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "EMAIL",
@@ -49,6 +55,7 @@ export const FIELDS = [
     dataType: "email",
     icon: <CiMail />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "ADDRESS",
@@ -57,6 +64,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <BsGeoAlt />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "WEBSITE",
@@ -65,6 +73,7 @@ export const FIELDS = [
     dataType: "url",
     icon: <IoIosLink />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
 
   // Choice
@@ -75,6 +84,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <TbListLetters />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "DROPDOWN",
@@ -83,6 +93,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <RiArrowDropDownLine />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "YES_NO",
@@ -91,6 +102,7 @@ export const FIELDS = [
     dataType: "boolean",
     icon: <AiOutlineStop />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
 
   // Other
@@ -101,6 +113,7 @@ export const FIELDS = [
     dataType: "number",
     icon: <CiStar />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "NUMBER",
@@ -109,6 +122,7 @@ export const FIELDS = [
     dataType: "number",
     icon: <CiHashtag />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
 
   // SCREENS
@@ -119,6 +133,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <TfiLayoutSliderAlt />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
   {
     type: "END",
@@ -127,6 +142,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <PiSlideshowFill />,
     settings: ShortTextSettings,
+    createAnswer: ShortTextCreateAnswer,
   },
 ]
 

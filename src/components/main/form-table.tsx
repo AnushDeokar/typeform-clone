@@ -167,7 +167,7 @@ function FormTable({ selectedWorkspace }: { selectedWorkspace: Workspace }) {
           ) : forms.length > 0 && displayMode === "list" ? (
             forms.map((form) => (
               <div
-                className="mt-4 flex w-full items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md"
+                className="mt-4 flex w-full cursor-pointer items-center gap-4 rounded-lg border-2 bg-white py-2 hover:shadow-md"
                 key={form.id}
                 onClick={() => router.push(`/form/${form.id}/create`)}
               >
