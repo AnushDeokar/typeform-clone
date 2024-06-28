@@ -24,7 +24,6 @@ function AddContentDialog({ formId }: { formId: string }) {
   const handleAddQuestion = async (questionType: any) => {
     const input: AddQuestionSchema = {
       text: "",
-      order: 1,
       type: questionType,
       formId: formId,
     }

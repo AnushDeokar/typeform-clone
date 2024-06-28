@@ -63,7 +63,6 @@ export const updateQuestionById = async (
       return false
     }
     const { id, text, order } = question
-    console.log("question", question)
     await db
       .update(questions)
       .set({

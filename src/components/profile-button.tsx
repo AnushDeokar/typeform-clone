@@ -1,6 +1,9 @@
 import React from "react"
+import Link from "next/link"
+import { redirect } from "next/navigation"
 import { useClerk } from "@clerk/nextjs"
 import { User } from "@clerk/nextjs/server"
+import { IoOpenOutline } from "react-icons/io5"
 
 import {
   DropdownMenu,
@@ -36,6 +39,17 @@ function ProfileButton({ user }: { user: User | null }) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/AnushDeokar/typeform-clone"
+              className="flex items-center gap-2"
+            >
+              {" "}
+              Github <IoOpenOutline />
+            </a>
+          </DropdownMenuItem>
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
           <DropdownMenuItem

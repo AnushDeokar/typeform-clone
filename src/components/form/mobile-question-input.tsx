@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { Suspense, useEffect, useRef } from "react"
 import { useQuestionStore } from "@/stores/question"
 import { FaArrowRight } from "react-icons/fa"
 
@@ -66,7 +66,7 @@ function MobileInputQuestion() {
   return (
     <div className="flex w-80 flex-col justify-center border-2 p-4">
       <div className="flex">
-        <div className="mt-[8px] flex gap-2 text-[12px]">
+        <div className="mt-[6px] flex gap-2 text-[12px]">
           <span className="mt-1">{selectedQuestion?.order}</span>
           <span className="mt-2">
             <FaArrowRight color="blue" />
@@ -74,8 +74,12 @@ function MobileInputQuestion() {
         </div>
         <Textarea
           ref={textareaRef}
-          className={`resize-none overflow-hidden border-none outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 ${fitsInSingleLine() ? "h-2 pb-0" : ""}`}
-          placeholder="..."
+          className={`resize-none overflow-hidden border-none outline-none placeholder:italic focus:ring-0 focus-visible:outline-none focus-visible:ring-0 ${fitsInSingleLine() ? "h-2 pb-0" : ""}`}
+          placeholder={
+            selectedField?.type === "WELCOME"
+              ? "This is your welcome screen. Say hi!"
+              : "Your Question here"
+          }
           value={selectedQuestion.text}
           onChange={(e) => {
             setSelectedQuestion({ ...selectedQuestion, text: e.target.value })
@@ -84,8 +88,11 @@ function MobileInputQuestion() {
         />
       </div>
       <div className="px-8">
-        {/* {selectedField && selectedField?.createAnswer}
-        {React.cloneElement(selectedField?.createAnswer, { key: 'foo' })} */}
+        {selectedField && (
+          <Suspense fallback={<div></div>}>
+            <selectedField.createAnswer />
+          </Suspense>
+        )}
       </div>
     </div>
   )

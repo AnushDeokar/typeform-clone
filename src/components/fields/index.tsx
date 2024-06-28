@@ -17,6 +17,16 @@ const ShortTextCreateAnswer = dynamic(
   () => import("./short-text/create-answer")
 )
 
+const EmailCreateAnswer = dynamic(() => import("./email/create-answer"))
+
+const WebsiteCreateAnswer = dynamic(() => import("./website/create-answer"))
+
+const RatingCreateAnswer = dynamic(() => import("./rating/create-answer"))
+
+const YesNoCreateAnswer = dynamic(() => import("./yes-no/create-answer"))
+
+const WelcomeCreateAnswer = dynamic(() => import("./welcome/create-answer"))
+
 export const FIELDS = [
   // Text
   {
@@ -55,7 +65,7 @@ export const FIELDS = [
     dataType: "email",
     icon: <CiMail />,
     settings: ShortTextSettings,
-    createAnswer: ShortTextCreateAnswer,
+    createAnswer: EmailCreateAnswer,
   },
   {
     type: "ADDRESS",
@@ -73,7 +83,7 @@ export const FIELDS = [
     dataType: "url",
     icon: <IoIosLink />,
     settings: ShortTextSettings,
-    createAnswer: ShortTextCreateAnswer,
+    createAnswer: WebsiteCreateAnswer,
   },
 
   // Choice
@@ -102,7 +112,7 @@ export const FIELDS = [
     dataType: "boolean",
     icon: <AiOutlineStop />,
     settings: ShortTextSettings,
-    createAnswer: ShortTextCreateAnswer,
+    createAnswer: YesNoCreateAnswer,
   },
 
   // Other
@@ -113,7 +123,7 @@ export const FIELDS = [
     dataType: "number",
     icon: <CiStar />,
     settings: ShortTextSettings,
-    createAnswer: ShortTextCreateAnswer,
+    createAnswer: RatingCreateAnswer,
   },
   {
     type: "NUMBER",
@@ -133,7 +143,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <TfiLayoutSliderAlt />,
     settings: ShortTextSettings,
-    createAnswer: ShortTextCreateAnswer,
+    createAnswer: WelcomeCreateAnswer,
   },
   {
     type: "END",
@@ -155,6 +165,7 @@ export const FIELD_TYPES = [
   "WEBSITE",
   "MULTIPLE_CHOICE",
   "DROPDOWN",
+  "YES_NO",
   "RATING",
   "NUMBER",
   "WELCOME",
@@ -182,7 +193,7 @@ export const QUESTION_TYPES = [
   {
     type: "OTHER",
     name: "Other",
-    color: "#edde7d",
+    color: "#a8e6bd",
   },
   {
     type: "SCREEN",

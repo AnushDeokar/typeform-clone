@@ -38,7 +38,6 @@ function SearchBar({ userId }: { userId: string }) {
       if (debouncedSearchParam.length >= 1) {
         const data = await searchForms(userId, debouncedSearchParam)
         setForms(data)
-        console.log(forms)
       } else {
         setForms([])
       }

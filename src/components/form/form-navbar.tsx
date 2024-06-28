@@ -18,6 +18,10 @@ const navbarOptions = [
     name: "Share",
     url: "/share",
   },
+  {
+    name: "Results",
+    url: "/results",
+  },
 ]
 
 function FormNavbar({ user }: { user: User | null }) {
@@ -33,6 +37,9 @@ function FormNavbar({ user }: { user: User | null }) {
         </div>
         <div className="flex  h-full border-t-4  text-[14px] font-semibold text-secgray">
           <span className="mb-2 mt-auto">Share</span>
+        </div>
+        <div className="flex  h-full border-t-4  text-[14px] font-semibold text-secgray">
+          <span className="mb-2 mt-auto">Results</span>
         </div>
       </div>
       <div className="flex items-center gap-4">
