@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+import { Icons } from "../ui/icons"
+
 type FormInputs = z.infer<typeof signinSchema>
 
 function SigninForm() {
@@ -36,10 +38,13 @@ function SigninForm() {
       password: "",
     },
   })
-
   if (!isLoaded) {
     // Add logic to handle loading state
-    return null
+    return (
+      <div className="flex h-60 items-center justify-center">
+        <Icons.spinner className="size-6 animate-spin" aria-hidden="true" />
+      </div>
+    )
   }
 
   const onSubmit = async (data: FormInputs) => {

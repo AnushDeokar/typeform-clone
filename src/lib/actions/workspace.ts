@@ -34,6 +34,7 @@ export const getAllWorkspaces = async (
   let data = await db.query.workspaces.findMany({
     where: eq(workspaces.userId, userId),
   })
+
   if (data.length === 0) {
     const res = await createWorkspace({ userId, name: "Workspace 1" })
     data = await db.query.workspaces.findMany({

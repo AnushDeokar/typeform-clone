@@ -63,9 +63,9 @@ function SearchBar({ userId }: { userId: string }) {
             setIsLoading(true)
             setSearchParam(v)
           }}
-          className="border-none"
+          className="w-40 border-none"
         />
-        <CommandList>
+        <CommandList className="w-full">
           {searchParam && !isLoading && (
             <CommandEmpty>No results found.</CommandEmpty>
           )}
