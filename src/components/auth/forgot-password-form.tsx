@@ -88,7 +88,7 @@ function ForgotPasswordForm() {
           )}
         />
         <div className="font-[350]">
-          Type the address linked to your account and we'll send you password
+          Type the address linked to your account and we&apos;ll send you password
           reset instructions.
         </div>
         <Button
