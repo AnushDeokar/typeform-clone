@@ -2,32 +2,29 @@ import React from "react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
-import SignupForm from "@/components/auth/signup-form"
+import ForgotPasswordForm from "@/components/auth/forgot-password-form"
 import GithubLink from "@/components/githubLink"
 
-function page() {
+function ForgotPasswordPage() {
   return (
-    <main className="text-dark flex min-h-screen flex-col items-center justify-center gap-2">
+    <main className="text-dark flex min-h-screen flex-col items-center gap-2 py-16">
       <div className="text-secondary-muted fixed right-4 top-1 text-sm">
-        Already have an account yet? &nbsp;{" "}
+        Don&apos;t have an account yet? &nbsp;{" "}
         <Button
           className="text-light h-8 rounded-none border border-black px-2 text-[12px] text-secondary-foreground"
           variant="outline"
         >
-          <Link href="/signin">Log in</Link>
+          <Link href="/signup">Sign up</Link>
         </Button>
       </div>
       <h1 className="text-[28px] font-semibold">Typeform</h1>
-      <p className="mt-8 max-w-[400px] text-center text-xl">
-        Get better data with conversational forms, surveys, quizzes & more.
-      </p>
+      <p className="mt-8 text-xl">Forgot Password?</p>
       <div className="flex w-72 flex-col gap-4 p-4">
-        <SignupForm />
+        <ForgotPasswordForm />
       </div>
-
       <GithubLink />
     </main>
   )
 }
 
-export default page
+export default ForgotPasswordPage

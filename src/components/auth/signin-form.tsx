@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useSignIn } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import { BiError } from "react-icons/bi"
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 import BeatLoader from "react-spinners/BeatLoader"
@@ -60,7 +61,8 @@ function SigninForm() {
         router.push(`${window.location.origin}/`)
       }
     } catch (error) {
-      console.log(error)
+      toast.error("Incorrect email or Password!")
+      setIsLoading(false)
     }
   }
 
@@ -140,9 +142,12 @@ function SigninForm() {
                 </FormItem>
               )}
             />
-            <p className="mt-2 text-sm text-muted-foreground underline">
+            <div
+              className="mt-2 cursor-pointer text-sm text-muted-foreground underline"
+              onClick={() => router.push("/forgot-password")}
+            >
               Forgot Password?
-            </p>
+            </div>
           </div>
           <Button
             className="outlined mt-2 rounded-md"

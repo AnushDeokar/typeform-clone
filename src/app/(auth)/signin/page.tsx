@@ -1,11 +1,11 @@
 import React from "react"
 import Link from "next/link"
-import { FcGoogle } from "react-icons/fc"
 
 import { Button } from "@/components/ui/button"
 import Oauthform from "@/components/auth/oauth-form"
 import SigninForm from "@/components/auth/signin-form"
 import TestSignin from "@/components/auth/test-signin"
+import GithubLink from "@/components/githubLink"
 
 function page() {
   return (
@@ -26,6 +26,7 @@ function page() {
         <Oauthform />
         <TestSignin />
       </div>
+      <GithubLink />
     </main>
   )
 }
