@@ -28,7 +28,7 @@ function MainDisplay({ userId, workspaces }: IMainDisplay) {
       name: "My new form",
     })
     if (!response.error) {
-      router.push(`/form/${response.data?.id}`)
+      router.push(`/form/${response.data?.id}/create`)
     }
   }
 

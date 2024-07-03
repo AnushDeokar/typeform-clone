@@ -15,7 +15,8 @@ export const metadata: Metadata = {
     default: "Typeform Clone",
     template: `%s - Typeform Clone`,
   },
-  description: "An open source typeform clone built with everything new in Next.js",
+  description:
+    "An open source typeform clone built with everything new in Next.js",
   keywords: [
     "nextjs",
     "react",
@@ -36,7 +37,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Typeform Clone",
-    description: "An open source typeform clone built with everything new in Next.js",
+    description:
+      "An open source typeform clone built with everything new in Next.js",
     creator: "@AnushDeokar",
   },
   icons: {
@@ -44,19 +46,20 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Typeform Clone",
-    description: "An open source typeform clone built with everything new in Next.js",
-    url: "https://github.com/AnushDeokar", 
+    description:
+      "An open source typeform clone built with everything new in Next.js",
+    url: "https://github.com/AnushDeokar",
     siteName: "Typeform Clone",
     images: [
       {
-        url: "/logo.png", 
-        width: 800,    
-        height: 600,      
+        url: "/logo.png",
+        width: 800,
+        height: 600,
         alt: "Typeform Clone Logo",
       },
     ],
   },
-};
+}
 
 export default function RootLayout({
   children,

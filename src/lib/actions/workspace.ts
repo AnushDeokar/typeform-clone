@@ -11,10 +11,13 @@ export const createWorkspace = async (
   input: CreateWorkspaceSchema & { userId: string }
 ) => {
   try {
-    const data = await db.insert(workspaces).values({
-      userId: input.userId,
-      name: input.name,
-    })
+    const data = await db
+      .insert(workspaces)
+      .values({
+        userId: input.userId,
+        name: input.name,
+      })
+      .returning()
 
     return {
       data: data,

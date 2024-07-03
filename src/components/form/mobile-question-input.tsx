@@ -58,7 +58,11 @@ function MobileInputQuestion() {
   }
 
   if (!selectedQuestion) {
-    return <div>Nothing selected</div>
+    return (
+      <div className="flex h-full items-center text-center">
+        Add Content to Get started
+      </div>
+    )
   }
 
   const selectedField = FIELDS.find((f) => f.type === selectedQuestion.type)

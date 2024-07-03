@@ -37,6 +37,7 @@ function ManageWorkspace({
   const [errorMessage, setErrorMessage] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [allWorkspaces, setAllWorkspaces] = useState(workspaces)
 
   const handleCreateWorkspace = async () => {
     setIsLoading(true)
@@ -48,6 +49,9 @@ function ManageWorkspace({
     } else {
       setErrorMessage("")
       const res = await createWorkspace({ name: workspaceName, userId: userId })
+      if (res.data && res.data.length > 0) {
+        setAllWorkspaces([...allWorkspaces, res.data[0]])
+      }
       setOpen(false)
     }
   }
@@ -103,7 +107,7 @@ function ManageWorkspace({
       </div>
       <ChangeWorkspace
         selectedWorkspace={selectedWorkspace}
-        workspaces={workspaces}
+        workspaces={allWorkspaces}
         setSelectedWorkspace={setSelectedWorkspace}
       />
     </div>
