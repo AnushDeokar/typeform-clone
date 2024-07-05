@@ -6,8 +6,9 @@ import { useClerk } from "@clerk/nextjs"
 import { User } from "@clerk/nextjs/server"
 import { TbSend2 } from "react-icons/tb"
 
+import { Button } from "@/components/ui/button"
+
 import ProfileButton from "../profile-button"
-import { Button } from "../ui/button"
 
 const navbarOptions = [
   {

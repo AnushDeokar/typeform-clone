@@ -4,6 +4,7 @@ import { Form } from "@/db/schema"
 import toast from "react-hot-toast"
 import { BsThreeDots } from "react-icons/bs"
 
+import { Dialog } from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { Dialog } from "../ui/dialog"
 import DeleteFormDialog from "./delete-form-dialog"
 import RenameFormDialog from "./rename-form-dialog"
 

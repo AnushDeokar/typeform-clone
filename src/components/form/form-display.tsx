@@ -5,9 +5,10 @@ import { Form } from "@/db/schema"
 import { CiLaptop, CiMobile1, CiPlay1 } from "react-icons/ci"
 import { FiPlus } from "react-icons/fi"
 
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
+
 import AddContentDialog from "./add-content"
-import MobileInputQuestion from "./mobile-question-input"
+import InputQuestion from "./question-input"
 
 function FormDisplay({ form }: { form: Form }) {
   const [displayType, setDisplayType] = useState<"MOBILE" | "DESKTOP">("MOBILE")
@@ -38,13 +39,14 @@ function FormDisplay({ form }: { form: Form }) {
         </div>
       </div>
       <div className="flex grow justify-center">
-        {displayType === "MOBILE" ? (
+        <InputQuestion displayType={displayType} />
+        {/* {displayType === "MOBILE" ? (
           <MobileInputQuestion />
         ) : (
           <div className="m-16 flex w-full items-center justify-center border-2 text-center">
             Test Question
           </div>
-        )}
+        )} */}
       </div>
     </div>
   )

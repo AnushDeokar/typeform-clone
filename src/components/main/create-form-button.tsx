@@ -3,8 +3,7 @@ import { useRouter } from "next/navigation"
 import { FaPlus } from "react-icons/fa"
 
 import { createForm } from "@/lib/actions/form"
-
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 
 function CreateFormButton({ workspaceId }: { workspaceId: string }) {
   const [isLoading, setIsLoading] = useState(false)

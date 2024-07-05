@@ -21,9 +21,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Icons } from "@/components/ui/icons"
 import { Input } from "@/components/ui/input"
-
-import { Icons } from "../ui/icons"
 
 type FormInputs = z.infer<typeof signinSchema>
 

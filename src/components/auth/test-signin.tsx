@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { useSignIn } from "@clerk/nextjs"
 import { IoLogIn } from "react-icons/io5"
 
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 
 function TestSignin() {
   const router = useRouter()

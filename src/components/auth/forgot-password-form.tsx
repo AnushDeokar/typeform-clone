@@ -10,6 +10,7 @@ import BeatLoader from "react-spinners/BeatLoader"
 import { z } from "zod"
 
 import { forgotPasswordSchema } from "@/lib/validations/authSchema"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -18,9 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
+import { Input } from "@/components/ui/input"
 
 type FormInputs = z.infer<typeof forgotPasswordSchema>
 

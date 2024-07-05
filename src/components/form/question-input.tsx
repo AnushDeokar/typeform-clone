@@ -4,12 +4,11 @@ import { FaArrowRight } from "react-icons/fa"
 
 import { updateQuestionById } from "@/lib/actions/question"
 import useDebounce from "@/hooks/use-debounce"
+import { Textarea } from "@/components/ui/textarea"
 
 import { FIELDS } from "../fields"
-import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea"
 
-function MobileInputQuestion() {
+function InputQuestion({ displayType }: { displayType: "MOBILE" | "DESKTOP" }) {
   const {
     selectedQuestion,
     setSelectedQuestion,
@@ -67,8 +66,14 @@ function MobileInputQuestion() {
 
   const selectedField = FIELDS.find((f) => f.type === selectedQuestion.type)
 
-  return (
-    <div className="flex w-80 flex-col justify-center border-2 p-4">
+  return displayType === "MOBILE" ? (
+    <div
+      className={
+        displayType === "MOBILE"
+          ? "flex w-80 flex-col justify-center border-2 p-4"
+          : "m-16 flex w-full flex-col justify-center border-2 px-8 text-center"
+      }
+    >
       <div className="flex">
         <div className="mt-[6px] flex gap-2 text-[12px]">
           <span className="mt-1">{selectedQuestion?.order}</span>
@@ -99,7 +104,39 @@ function MobileInputQuestion() {
         )}
       </div>
     </div>
+  ) : (
+    <div className="m-16 flex w-full flex-col justify-center border-2 px-8 text-center">
+      <div className="flex">
+        <div className="mt-[6px] flex gap-2 text-lg">
+          <span className="mt-1">{selectedQuestion?.order}</span>
+          <span className="mt-2">
+            <FaArrowRight color="blue" />
+          </span>
+        </div>
+        <Textarea
+          ref={textareaRef}
+          className={`resize-none overflow-hidden border-none text-lg outline-none placeholder:italic focus:ring-0 focus-visible:outline-none focus-visible:ring-0 ${fitsInSingleLine() ? "h-2 pb-0" : ""}`}
+          placeholder={
+            selectedField?.type === "WELCOME"
+              ? "This is your welcome screen. Say hi!"
+              : "Your Question here"
+          }
+          value={selectedQuestion.text}
+          onChange={(e) => {
+            setSelectedQuestion({ ...selectedQuestion, text: e.target.value })
+            adjustTextareaHeight()
+          }}
+        />
+      </div>
+      <div className="pl-10 text-lg">
+        {selectedField && (
+          <Suspense fallback={<div></div>}>
+            <selectedField.createAnswer />
+          </Suspense>
+        )}
+      </div>
+    </div>
   )
 }
 
-export default MobileInputQuestion
+export default InputQuestion
