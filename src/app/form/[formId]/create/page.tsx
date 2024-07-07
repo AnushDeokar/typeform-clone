@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm"
 
 import { getQuestionByFormId } from "@/lib/actions/question"
 import FormDisplay from "@/components/form/form-display"
+import FormPreview from "@/components/form/form-preview"
 import FormSettings from "@/components/form/form-settings"
 import QuestionsPanel from "@/components/form/questions-panel"
 
@@ -34,6 +35,7 @@ async function FormPage({ params }: { params: IFormPage["params"] }) {
 
   return (
     <div className="flex w-full grow gap-1 pb-4">
+      <FormPreview />
       <QuestionsPanel questions={questions} />
       <FormDisplay form={form} />
       <FormSettings />
