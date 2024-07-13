@@ -1,13 +1,18 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { usePreviewStore } from "@/stores/preview"
-import { CiLaptop } from "react-icons/ci"
+import { CiLaptop, CiMobile1 } from "react-icons/ci"
 import { IoMdClose } from "react-icons/io"
 import { MdOutlineRestartAlt } from "react-icons/md"
 
+import PreviewContent from "./preview-content"
+
 function FormPreview() {
   const { open, setOpen } = usePreviewStore()
+  const [screenNumber, setScreenNumber] = useState(0)
+  const [displayType, setDisplayType] = useState<"MOBILE" | "DESKTOP">("MOBILE")
+
   return (
     <div
       className={
@@ -24,15 +29,28 @@ function FormPreview() {
           >
             <IoMdClose size={20} />
           </div>
-          <div className="flex flex-grow cursor-pointer items-center justify-center rounded-md p-2 hover:bg-secgraydark">
-            <CiLaptop size={20} />
+          <div
+            className="flex flex-grow cursor-pointer items-center justify-center rounded-md p-2 hover:bg-secgraydark"
+            onClick={() =>
+              displayType === "MOBILE"
+                ? setDisplayType("DESKTOP")
+                : setDisplayType("MOBILE")
+            }
+          >
+            {displayType === "MOBILE" ? (
+              <CiLaptop size={20} />
+            ) : (
+              <CiMobile1 size={20} />
+            )}
           </div>
-          <div className="flex flex-grow cursor-pointer items-center justify-center rounded-md p-2 hover:bg-secgraydark">
+          <div
+            className="flex flex-grow cursor-pointer items-center justify-center rounded-md p-2 hover:bg-secgraydark"
+            onClick={() => setScreenNumber(0)}
+          >
             <MdOutlineRestartAlt size={20} />
           </div>
         </div>
-
-        <div className="w-80 flex-grow border"></div>
+        <PreviewContent screenNumber={screenNumber} displayType={displayType} />
       </div>
     </div>
   )

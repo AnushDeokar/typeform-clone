@@ -16,6 +16,7 @@ const ShortTextSettings = dynamic(() => import("./short-text/settings"))
 const ShortTextCreateAnswer = dynamic(
   () => import("./short-text/create-answer")
 )
+const ShortTextInput = dynamic(() => import("./short-text/input"))
 
 const EmailCreateAnswer = dynamic(() => import("./email/create-answer"))
 
@@ -37,6 +38,7 @@ export const FIELDS = [
     icon: <MdOutlineShortText />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "LONG_TEXT",
@@ -46,6 +48,7 @@ export const FIELDS = [
     icon: <LuText />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
 
   // Contact info
@@ -57,6 +60,7 @@ export const FIELDS = [
     icon: <FiPhone />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "EMAIL",
@@ -66,6 +70,7 @@ export const FIELDS = [
     icon: <CiMail />,
     settings: ShortTextSettings,
     createAnswer: EmailCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "ADDRESS",
@@ -75,6 +80,7 @@ export const FIELDS = [
     icon: <BsGeoAlt />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "WEBSITE",
@@ -84,6 +90,7 @@ export const FIELDS = [
     icon: <IoIosLink />,
     settings: ShortTextSettings,
     createAnswer: WebsiteCreateAnswer,
+    input: ShortTextInput,
   },
 
   // Choice
@@ -95,6 +102,7 @@ export const FIELDS = [
     icon: <TbListLetters />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "DROPDOWN",
@@ -104,6 +112,7 @@ export const FIELDS = [
     icon: <RiArrowDropDownLine />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "YES_NO",
@@ -113,6 +122,7 @@ export const FIELDS = [
     icon: <AiOutlineStop />,
     settings: ShortTextSettings,
     createAnswer: YesNoCreateAnswer,
+    input: ShortTextInput,
   },
 
   // Other
@@ -124,6 +134,7 @@ export const FIELDS = [
     icon: <CiStar />,
     settings: ShortTextSettings,
     createAnswer: RatingCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "NUMBER",
@@ -133,6 +144,7 @@ export const FIELDS = [
     icon: <CiHashtag />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
 
   // SCREENS
@@ -144,6 +156,7 @@ export const FIELDS = [
     icon: <TfiLayoutSliderAlt />,
     settings: ShortTextSettings,
     createAnswer: WelcomeCreateAnswer,
+    input: ShortTextInput,
   },
   {
     type: "END",
@@ -153,6 +166,7 @@ export const FIELDS = [
     icon: <PiSlideshowFill />,
     settings: ShortTextSettings,
     createAnswer: ShortTextCreateAnswer,
+    input: ShortTextInput,
   },
 ]
 
