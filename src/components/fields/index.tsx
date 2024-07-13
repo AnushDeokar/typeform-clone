@@ -23,6 +23,7 @@ const EmailCreateAnswer = dynamic(() => import("./email/create-answer"))
 const WebsiteCreateAnswer = dynamic(() => import("./website/create-answer"))
 
 const RatingCreateAnswer = dynamic(() => import("./rating/create-answer"))
+const RatingInput = dynamic(() => import("./rating/input"))
 
 const YesNoCreateAnswer = dynamic(() => import("./yes-no/create-answer"))
 
@@ -134,7 +135,7 @@ export const FIELDS = [
     icon: <CiStar />,
     settings: ShortTextSettings,
     createAnswer: RatingCreateAnswer,
-    input: ShortTextInput,
+    input: RatingInput,
   },
   {
     type: "NUMBER",

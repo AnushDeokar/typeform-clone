@@ -36,7 +36,7 @@ function ShortTextInput({ onSubmit }: { onSubmit: () => void }) {
           adjustTextareaHeight()
         }}
       />
-      <div>
+      <div className="flex">
         <Button
           className="h-10 rounded-md bg-[#104eb3] text-lg text-white hover:bg-[#104eb3]/80"
           onClick={onSubmit}

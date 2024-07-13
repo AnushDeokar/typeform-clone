@@ -10,7 +10,7 @@ import PreviewContent from "./preview-content"
 
 function FormPreview() {
   const { open, setOpen } = usePreviewStore()
-  const [screenNumber, setScreenNumber] = useState(0)
+  const [refreshCount, setRefreshCount] = useState(0)
   const [displayType, setDisplayType] = useState<"MOBILE" | "DESKTOP">("MOBILE")
 
   return (
@@ -45,12 +45,12 @@ function FormPreview() {
           </div>
           <div
             className="flex flex-grow cursor-pointer items-center justify-center rounded-md p-2 hover:bg-secgraydark"
-            onClick={() => setScreenNumber(0)}
+            onClick={() => setRefreshCount(refreshCount + 1)}
           >
             <MdOutlineRestartAlt size={20} />
           </div>
         </div>
-        <PreviewContent screenNumber={screenNumber} displayType={displayType} />
+        <PreviewContent refreshCount={refreshCount} displayType={displayType} />
       </div>
     </div>
   )
