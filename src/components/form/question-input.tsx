@@ -75,19 +75,23 @@ function InputQuestion({ displayType }: { displayType: "MOBILE" | "DESKTOP" }) {
       }
     >
       <div className="flex">
-        <div className="mt-[6px] flex gap-2 text-[12px]">
-          <span className="mt-1">{selectedQuestion?.order}</span>
-          <span className="mt-2">
-            <FaArrowRight color="blue" />
-          </span>
-        </div>
+        {selectedQuestion.type !== "END" && (
+          <div className="mt-[6px] flex gap-2 text-[12px]">
+            <span className="mt-1">{selectedQuestion?.order}</span>
+            <span className="mt-2">
+              <FaArrowRight color="blue" />
+            </span>
+          </div>
+        )}
         <Textarea
           ref={textareaRef}
           className={`resize-none overflow-hidden border-none outline-none placeholder:italic focus:ring-0 focus-visible:outline-none focus-visible:ring-0 ${fitsInSingleLine() ? "h-2 pb-0" : ""}`}
           placeholder={
             selectedField?.type === "WELCOME"
               ? "This is your welcome screen. Say hi!"
-              : "Your Question here"
+              : selectedField?.type === "END"
+                ? "Say bye! This is your end screen"
+                : "Your Question here"
           }
           value={selectedQuestion.text}
           onChange={(e) => {

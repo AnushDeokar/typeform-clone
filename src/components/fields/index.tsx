@@ -28,7 +28,7 @@ const RatingInput = dynamic(() => import("./rating/input"))
 const YesNoCreateAnswer = dynamic(() => import("./yes-no/create-answer"))
 
 const WelcomeCreateAnswer = dynamic(() => import("./welcome/create-answer"))
-
+const EndCreateAnswer = dynamic(() => import("./end/create-answer"))
 export const FIELDS = [
   // Text
   {
@@ -166,7 +166,7 @@ export const FIELDS = [
     dataType: "string",
     icon: <PiSlideshowFill />,
     settings: ShortTextSettings,
-    createAnswer: ShortTextCreateAnswer,
+    createAnswer: EndCreateAnswer,
     input: ShortTextInput,
   },
 ]

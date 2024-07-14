@@ -2,7 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
-import { useClerk } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 import { User } from "@clerk/nextjs/server"
 import { TbSend2 } from "react-icons/tb"
 
@@ -26,9 +26,10 @@ const navbarOptions = [
 ]
 
 function FormNavbar({ user }: { user: User | null }) {
+  const router = useRouter()
   return (
     <nav className="flex h-12 w-full items-center">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2" onClick={() => router.push("/")}>
         <Image src="/logo.png" height={25} width={50} alt="logo" />
         <h3 className="text-[20px] font-semibold">Typeform</h3>
       </div>

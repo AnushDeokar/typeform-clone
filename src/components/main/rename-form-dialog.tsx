@@ -55,7 +55,7 @@ function RenameFormDialog({ form, forms, setForms, setOpen }: IRenameForm) {
       <div className="grid gap-4 py-4">
         <Input
           id="name"
-          placeholder="Eg. Aweshome survey"
+          placeholder="Eg. Awesome survey"
           className="col-span-3"
           value={formName}
           onChange={(e) => setformName(e.target.value)}

@@ -77,6 +77,10 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
         {selectedQuestion &&
           questionList.map((question) => {
             const { icon, color } = getFieldTypeAttributes(question.type)
+
+            if (question.type === "END") {
+              return null
+            }
             return question.id === selectedQuestion?.id ? (
               <div
                 className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]"
@@ -115,7 +119,7 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
         className="w-full grow overflow-auto rounded-xl bg-forge p-4"
         style={{ height: `calc(100% - ${height}px - 32px)` }}
       >
-        <div className="flex items-center justify-between">
+        <div className="mb-2 flex items-center justify-between">
           <span className="font-semibold">Endings</span>
           <Button
             className="aspect-square h-8 bg-white p-0 text-3xl text-black"
@@ -124,6 +128,42 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
             <FaPlus size={12} color="#5E5E5E" />
           </Button>
         </div>
+
+        {selectedQuestion &&
+          questionList
+            .filter((q) => q.type === "END")
+            .map((question, index) => {
+              const { icon, color } = getFieldTypeAttributes(question.type)
+
+              return question.id === selectedQuestion?.id ? (
+                <div
+                  className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]"
+                  key={selectedQuestion.id}
+                >
+                  <div
+                    className="text flex w-12  items-center justify-between rounded-md p-1"
+                    style={{ backgroundColor: color }}
+                  >
+                    {icon} <span className="text-sm">{index + 1}</span>
+                  </div>
+                  <span>{truncateText(selectedQuestion.text, 50)}</span>
+                </div>
+              ) : (
+                <div
+                  className="flex cursor-pointer items-center gap-1 rounded-lg p-[10px] hover:bg-secgraydark/40"
+                  key={question.id}
+                  onClick={() => setSelectedQuestion(question)}
+                >
+                  <div
+                    className="flex w-12 items-center justify-between rounded-md p-1"
+                    style={{ backgroundColor: color }}
+                  >
+                    {icon} <span className="text-sm">{index + 1}</span>
+                  </div>
+                  <span>{question.text}</span>
+                </div>
+              )
+            })}
       </div>
     </div>
   )
