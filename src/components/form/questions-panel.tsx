@@ -10,10 +10,13 @@ import React, {
 import { Question } from "@/db/schema"
 import { useQuestionStore } from "@/stores/question"
 import { FaPlus } from "react-icons/fa"
+import { HiOutlineDotsVertical } from "react-icons/hi"
 import { LuText } from "react-icons/lu"
 
 import { Button } from "@/components/ui/button"
 import { FIELDS, QUESTION_TYPES } from "@/components/fields"
+
+import QuestionActions from "./question-actions"
 
 const getFieldTypeAttributes = (type: string) => {
   const field = FIELDS.find((f) => f.type === type)
@@ -81,22 +84,9 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
             if (question.type === "END") {
               return null
             }
-            return question.id === selectedQuestion?.id ? (
+            return (
               <div
-                className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]"
-                key={selectedQuestion.id}
-              >
-                <div
-                  className="flex w-12 items-center  justify-between rounded-md p-1"
-                  style={{ backgroundColor: color }}
-                >
-                  {icon} <span>{selectedQuestion.order}</span>
-                </div>
-                <span>{truncateText(selectedQuestion.text, 50)}</span>
-              </div>
-            ) : (
-              <div
-                className="flex cursor-pointer items-center gap-1 rounded-lg p-[10px] hover:bg-secgraydark/40"
+                className={`flex cursor-pointer items-center gap-1 rounded-lg p-[10px] ${selectedQuestion.id === question.id ? "bg-secgraydark" : "hover:bg-secgraydark/40"}`}
                 key={question.id}
                 onClick={() => setSelectedQuestion(question)}
               >
@@ -106,7 +96,12 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
                 >
                   {icon} <span>{question.order}</span>
                 </div>
-                <span>{question.text}</span>
+                <div className="flex grow items-center">
+                  <span className="grow">
+                    {truncateText(question.text, 50)}
+                  </span>
+                  <QuestionActions question={question} />
+                </div>
               </div>
             )
           })}
@@ -135,22 +130,9 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
             .map((question, index) => {
               const { icon, color } = getFieldTypeAttributes(question.type)
 
-              return question.id === selectedQuestion?.id ? (
+              return (
                 <div
-                  className="flex cursor-pointer items-center gap-1 rounded-lg bg-secgraydark p-[10px]"
-                  key={selectedQuestion.id}
-                >
-                  <div
-                    className="text flex w-12  items-center justify-between rounded-md p-1"
-                    style={{ backgroundColor: color }}
-                  >
-                    {icon} <span className="text-sm">{index + 1}</span>
-                  </div>
-                  <span>{truncateText(selectedQuestion.text, 50)}</span>
-                </div>
-              ) : (
-                <div
-                  className="flex cursor-pointer items-center gap-1 rounded-lg p-[10px] hover:bg-secgraydark/40"
+                  className={`flex cursor-pointer items-center gap-1 rounded-lg p-[10px] ${selectedQuestion.id === question.id ? "bg-secgraydark" : "hover:bg-secgraydark/40"}`}
                   key={question.id}
                   onClick={() => setSelectedQuestion(question)}
                 >
@@ -158,9 +140,14 @@ function QuestionsPanel({ questions }: { questions: Question[] }) {
                     className="flex w-12 items-center justify-between rounded-md p-1"
                     style={{ backgroundColor: color }}
                   >
-                    {icon} <span className="text-sm">{index + 1}</span>
+                    {icon} <span>{question.order}</span>
                   </div>
-                  <span>{question.text}</span>
+                  <div className="flex grow items-center">
+                    <span className="grow">
+                      {truncateText(question.text, 50)}
+                    </span>
+                    <QuestionActions question={question} />
+                  </div>
                 </div>
               )
             })}

@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle"
 import { Question, questions } from "@/db/schema"
-import { count, eq, sql } from "drizzle-orm"
+import { and, count, eq, gt, sql } from "drizzle-orm"
 
 import { getErrorMessage } from "../utils"
 import { AddQuestionSchema, addQuestionSchema } from "../validations/question"
@@ -58,7 +58,6 @@ export const updateQuestionById = async (
   question: Question | null
 ): Promise<boolean> => {
   try {
-    // Extract the properties needed for update
     if (!question) {
       return false
     }
@@ -72,9 +71,59 @@ export const updateQuestionById = async (
       .where(eq(questions.id, id))
       .execute()
 
-    return true // Return true if update was successful
+    return true
   } catch (err) {
     console.error("Error updating question:", err)
+    throw new Error(getErrorMessage(err))
+  }
+}
+
+export const deleteQuestionById = async (
+  question: Question
+): Promise<Question[]> => {
+  try {
+    const { id, formId, order } = question
+    await db.delete(questions).where(eq(questions.id, id)).execute()
+
+    await db
+      .update(questions)
+      .set({
+        order: sql`${questions.order} - 1`,
+      })
+      .where(and(eq(questions.formId, formId), gt(questions.order, order)))
+      .execute()
+    const updatedQuestions = await getQuestionByFormId(formId)
+    return updatedQuestions
+  } catch (err) {
+    console.error("Error Deleting question:", err)
+    throw new Error(getErrorMessage(err))
+  }
+}
+
+export const duplicateQuestion = async (
+  question: Question
+): Promise<Question[]> => {
+  try {
+    const { id, formId, order } = question
+    await db
+      .update(questions)
+      .set({
+        order: sql`${questions.order} + 1`,
+      })
+      .where(and(eq(questions.formId, formId), gt(questions.order, order)))
+      .execute()
+
+    await addQuestion({
+      text: question.text,
+      order: order + 1,
+      formId: question.formId,
+      type: question.type as any,
+    })
+
+    const updatedQuestions = await getQuestionByFormId(formId)
+    return updatedQuestions
+  } catch (err) {
+    console.error("Error Deleting question:", err)
     throw new Error(getErrorMessage(err))
   }
 }
