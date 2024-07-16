@@ -5,7 +5,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi"
 import { IoDuplicateOutline } from "react-icons/io5"
 import { MdDeleteOutline } from "react-icons/md"
 
-import { deleteQuestionById, duplicateQuestion } from "@/lib/actions/question"
+import { deleteQuestion, duplicateQuestion } from "@/lib/actions/question"
 
 import { Dialog } from "../ui/dialog"
 import {
@@ -21,7 +21,7 @@ function QuestionActions({ question }: { question: Question }) {
 
   const handleDeleteQuestion = async () => {
     if (question.id) {
-      const questions = await deleteQuestionById(question)
+      const questions = await deleteQuestion(question)
       setQuestionList(questions)
     }
   }

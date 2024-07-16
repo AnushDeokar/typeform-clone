@@ -78,7 +78,7 @@ export const updateQuestionById = async (
   }
 }
 
-export const deleteQuestionById = async (
+export const deleteQuestion = async (
   question: Question
 ): Promise<Question[]> => {
   try {

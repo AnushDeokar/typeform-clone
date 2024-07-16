@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import ChangePasswordForm from "@/components/auth/change-password-form"
-import GithubLink from "@/components/githubLink"
+import GithubLink from "@/components/github-link"
 
 function ForgotPasswordPage() {
   return (

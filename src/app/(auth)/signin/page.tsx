@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import Oauthform from "@/components/auth/oauth-form"
 import SigninForm from "@/components/auth/signin-form"
 import TestSignin from "@/components/auth/test-signin"
-import GithubLink from "@/components/githubLink"
+import GithubLink from "@/components/github-link"
 
 function page() {
   return (
