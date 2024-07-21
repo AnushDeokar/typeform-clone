@@ -1,16 +1,9 @@
 "use client"
 
-import React, {
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import React, { MouseEvent, useCallback, useEffect, useState } from "react"
 import { Question } from "@/db/schema"
 import { useQuestionStore } from "@/stores/question"
 import { FaPlus } from "react-icons/fa"
-import { HiOutlineDotsVertical } from "react-icons/hi"
 import { LuText } from "react-icons/lu"
 
 import { Button } from "@/components/ui/button"

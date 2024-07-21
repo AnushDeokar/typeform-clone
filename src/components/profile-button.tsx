@@ -1,6 +1,4 @@
 import React from "react"
-import Link from "next/link"
-import { redirect } from "next/navigation"
 import { useClerk } from "@clerk/nextjs"
 import { User } from "@clerk/nextjs/server"
 import { IoOpenOutline } from "react-icons/io5"

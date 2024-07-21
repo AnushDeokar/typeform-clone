@@ -2,10 +2,8 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 import { useQuestionStore } from "@/stores/question"
-import { Check, ChevronsUpDown } from "lucide-react"
-import { LuText } from "react-icons/lu"
+import { ChevronsUpDown } from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Command,

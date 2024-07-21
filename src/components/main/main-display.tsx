@@ -3,7 +3,6 @@
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { type Workspace } from "@/db/schema"
-import { FaPlus } from "react-icons/fa"
 
 import { createForm } from "@/lib/actions/form"
 import { Button } from "@/components/ui/button"
