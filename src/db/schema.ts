@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm"
 import {
+  boolean,
   integer,
   pgTable,
   text,
@@ -23,6 +24,7 @@ export const workspaceRelation = relations(workspaces, ({ many }) => ({
 export const forms = pgTable("forms", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text("name").notNull(),
+  isPublished: boolean("is_published").default(false),
   workspaceId: uuid("workspace_id").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

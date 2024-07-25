@@ -1,14 +1,18 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useModalStore } from "@/stores/modal"
+import { useQuestionStore } from "@/stores/question"
 import { User } from "@clerk/nextjs/server"
 import { TbSend2 } from "react-icons/tb"
 
+import { publishForm } from "@/lib/actions/form"
 import { Button } from "@/components/ui/button"
 
 import ProfileButton from "../profile-button"
+import { Icons } from "../ui/icons"
 
 const navbarOptions = [
   {
@@ -27,6 +31,20 @@ const navbarOptions = [
 
 function FormNavbar({ user }: { user: User | null }) {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const { selectedQuestion } = useQuestionStore()
+  const { setPublishModal } = useModalStore()
+
+  const handlePublish = async () => {
+    if (!selectedQuestion) {
+      return
+    }
+    setLoading(true)
+    const res = await publishForm(selectedQuestion.formId)
+    setPublishModal(true)
+    setLoading(false)
+  }
+
   return (
     <nav className="flex h-12 w-full items-center">
       <div className="flex items-center gap-2" onClick={() => router.push("/")}>
@@ -45,7 +63,14 @@ function FormNavbar({ user }: { user: User | null }) {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <Button className="flex h-8 items-center gap-1">
+        <Button
+          className="flex h-8 items-center gap-1"
+          onClick={handlePublish}
+          disabled={loading}
+        >
+          {loading && (
+            <Icons.spinner className="size-6 animate-spin" aria-hidden="true" />
+          )}
           <TbSend2 size={14} /> Publish
         </Button>
         <div className="h-8 border"></div>

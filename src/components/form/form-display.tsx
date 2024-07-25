@@ -6,6 +6,7 @@ import { usePreviewStore } from "@/stores/preview"
 import { CiLaptop, CiMobile1, CiPlay1 } from "react-icons/ci"
 
 import AddContentDialog from "./add-content"
+import PublishFormDialog from "./publish-form"
 import InputQuestion from "./question-input"
 
 function FormDisplay({ form }: { form: Form }) {
@@ -16,6 +17,7 @@ function FormDisplay({ form }: { form: Form }) {
       <div className="flex w-full gap-2 rounded-xl bg-forge p-2 px-4">
         <div className="border-r-2 pr-4 ">
           <AddContentDialog formId={form.id} />
+          <PublishFormDialog formId={form.id} />
         </div>
         <div className="flex gap-2 border-r-2 pr-4">
           <div

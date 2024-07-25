@@ -13,6 +13,7 @@ export const createForm = async (input: any) => {
       .values({
         workspaceId: input.workspaceId,
         name: input.name,
+        isPublished: false,
       })
       .returning({ id: forms.id })
 
@@ -49,6 +50,7 @@ export const searchForms = async (
       workspaceId: forms.workspaceId,
       createdAt: forms.createdAt,
       updatedAt: forms.updatedAt,
+      isPublished: forms.isPublished,
     })
     .from(forms)
     .innerJoin(workspaces, eq(forms.workspaceId, workspaces.id))
@@ -66,6 +68,18 @@ export const renameForm = async (
     const data = await db
       .update(forms)
       .set({ name: name })
+      .where(eq(forms.id, formId))
+    return true
+  } catch (err) {
+    return false
+  }
+}
+
+export const publishForm = async (formId: string): Promise<any> => {
+  try {
+    const data = await db
+      .update(forms)
+      .set({ isPublished: true })
       .where(eq(forms.id, formId))
     return true
   } catch (err) {
