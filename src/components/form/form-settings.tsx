@@ -10,9 +10,7 @@ function FormSettings() {
           <div className="cursor-pointer border-b-2 border-black">Question</div>
           {/* <div className="cursor-pointer text-secgray">Design</div> */}
         </div>
-        <div className="py-6">
-          <ChangeQuestionType />
-        </div>
+        <ChangeQuestionType />
       </div>
     </div>
   )

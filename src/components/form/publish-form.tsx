@@ -27,7 +27,7 @@ function PublishFormDialog({ formId }: { formId: string }) {
   }
 
   return (
-    <Dialog open={true} onOpenChange={setPublishModal}>
+    <Dialog open={publishModal} onOpenChange={setPublishModal}>
       <DialogContent className="w-auto bg-forge p-8">
         <DialogHeader>
           <DialogTitle className="mb-4  text-xl">
