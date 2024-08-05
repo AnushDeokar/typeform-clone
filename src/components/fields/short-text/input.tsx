@@ -2,11 +2,20 @@
 
 import React, { useRef } from "react"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
-function ShortTextInput({ onSubmit }: { onSubmit: () => void }) {
+function ShortTextInput({
+  onSubmit,
+  className,
+  isLast = false,
+}: {
+  onSubmit: () => void
+  className?: string
+  isLast?: boolean
+}) {
   const textareaRef = useRef<any>(null)
 
   const fitsInSingleLine = () => {
@@ -30,7 +39,10 @@ function ShortTextInput({ onSubmit }: { onSubmit: () => void }) {
     <div className="my-4 flex flex-col gap-1">
       <Textarea
         ref={textareaRef}
-        className={`resize-none overflow-hidden border-none p-0 text-xl text-[#104eb3] outline-none placeholder:text-[#b8cae8] focus:ring-0 focus-visible:outline-none focus-visible:ring-0 ${fitsInSingleLine() ? "pb-0" : ""}`}
+        className={cn(
+          `resize-none overflow-hidden border-none p-0 text-xl text-[#104eb3] outline-none placeholder:text-[#b8cae8] focus:ring-0 focus-visible:outline-none focus-visible:ring-0 ${fitsInSingleLine() ? "pb-0" : ""}`,
+          className
+        )}
         placeholder="Type your answer here..."
         onChange={(e: any) => {
           adjustTextareaHeight()
@@ -41,7 +53,7 @@ function ShortTextInput({ onSubmit }: { onSubmit: () => void }) {
           className="h-10 rounded-md bg-[#104eb3] text-lg text-white hover:bg-[#104eb3]/80"
           onClick={onSubmit}
         >
-          OK
+          {isLast ? "Submit" : "OK"}
         </Button>
       </div>
     </div>

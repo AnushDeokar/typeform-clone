@@ -8,6 +8,7 @@ import { FaArrowRight, FaChevronDown, FaChevronUp } from "react-icons/fa"
 
 import { FIELDS } from "../fields"
 import { Button } from "../ui/button"
+import { Skeleton } from "../ui/skeleton"
 
 interface IPreviewContent {
   questionList: Question[]
@@ -58,11 +59,13 @@ const QuestionContent = ({
   questionList,
   selectedField,
   setSelectedQuestion,
+  isLast = false,
 }: {
   selectedQuestion: number
   questionList: any[]
   selectedField: any
   setSelectedQuestion: React.Dispatch<React.SetStateAction<number>>
+  isLast?: boolean
 }) => (
   <AnimatePresence mode="wait">
     <motion.div
@@ -72,23 +75,24 @@ const QuestionContent = ({
       animate="animate"
       exit="exit"
       transition={{ duration: 0.25 }}
-      className="flex w-full flex-col items-center"
+      className="flex w-full flex-col sm:px-[20%]"
     >
       <div className="flex p-4">
-        <div className="mt-[6px] flex gap-2 text-[12px]">
+        <div className="mt-[6px] flex gap-2 text-[12px] md:text-2xl">
           <span className="mt-1">{questionList[selectedQuestion]?.order}</span>
           <span className="mt-2">
             <FaArrowRight color="blue" />
           </span>
         </div>
-        <div className="m-2 resize-none overflow-hidden border-none text-lg outline-none placeholder:italic focus:ring-0 focus-visible:outline-none focus-visible:ring-0">
+        <div className="m-2 resize-none overflow-hidden border-none text-lg outline-none placeholder:italic focus:ring-0 focus-visible:outline-none focus-visible:ring-0 md:text-2xl">
           {questionList[selectedQuestion].text}
         </div>
       </div>
-      <div className="flex w-full justify-center px-8">
+      <div className="w-full px-8">
         {selectedField && (
-          <Suspense fallback={<div></div>}>
+          <Suspense fallback={<Skeleton className="h-4 w-12" />}>
             <selectedField.input
+              className="text-2xl"
               onSubmit={() => {
                 setSelectedQuestion(
                   selectedQuestion + 1 === questionList.length
@@ -96,6 +100,7 @@ const QuestionContent = ({
                     : selectedQuestion + 1
                 )
               }}
+              isLast={isLast}
             />
           </Suspense>
         )}
@@ -119,9 +124,6 @@ function PreviewContent({ questionList }: IPreviewContent) {
     (f) => f.type === questionList[selectedQuestion].type
   )
 
-  const progressBarWidth = ((selectedQuestion + 1) / questionList.length) * 100
-
-  let displayType = "DESKTOP"
   return (
     <div className="flex h-screen w-screen">
       <div className="absolute bottom-0 flex w-full justify-between rounded-md p-4">
@@ -130,9 +132,15 @@ function PreviewContent({ questionList }: IPreviewContent) {
           questionListLength={questionList.length}
           setSelectedQuestion={setSelectedQuestion}
         />
-        <Button className="h-11 bg-[#104eb3] hover:bg-[#104eb3]/80">
-          Built by Anush
-        </Button>
+        <a
+          href="https://github.com/AnushDeokar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button className="h-11 bg-[#104eb3] hover:bg-[#104eb3]/80">
+            Built by Anush
+          </Button>
+        </a>
       </div>
       <div className="flex h-full w-full grow items-center justify-center">
         <QuestionContent
@@ -140,6 +148,7 @@ function PreviewContent({ questionList }: IPreviewContent) {
           questionList={questionList}
           selectedField={selectedField}
           setSelectedQuestion={setSelectedQuestion}
+          isLast={selectedQuestion === questionList.length - 1}
         />
       </div>
     </div>
