@@ -20,13 +20,6 @@ const swipeUpVariants = {
   exit: { y: "-100%", opacity: 0 },
 }
 
-const ProgressBar = ({ progressBarWidth }: { progressBarWidth: number }) => (
-  <div
-    className="transition-width absolute top-0 h-1 bg-blue-500 duration-500 ease-in-out"
-    style={{ width: `${progressBarWidth}%` }}
-  ></div>
-)
-
 const ControlButtons = ({
   selectedQuestion,
   questionListLength,
@@ -66,48 +59,52 @@ const QuestionContent = ({
   selectedField: any
   setSelectedQuestion: React.Dispatch<React.SetStateAction<number>>
   isLast?: boolean
-}) => (
-  <AnimatePresence mode="wait">
-    <motion.div
-      key={selectedQuestion}
-      variants={swipeUpVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ duration: 0.25 }}
-      className="flex w-full flex-col sm:px-[20%]"
-    >
-      <div className="flex p-4">
-        <div className="mt-[6px] flex gap-2 text-[12px] md:text-2xl">
-          <span className="mt-1">{questionList[selectedQuestion]?.order}</span>
-          <span className="mt-2">
-            <FaArrowRight color="blue" />
-          </span>
+}) => {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={selectedQuestion}
+        variants={swipeUpVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={{ duration: 0.25 }}
+        className="flex w-full flex-col sm:px-[20%]"
+      >
+        <div className="flex p-4">
+          <div className="mt-[6px] flex gap-2 text-[12px] md:text-2xl">
+            <span className="mt-1">
+              {questionList[selectedQuestion]?.order}
+            </span>
+            <span className="mt-2">
+              <FaArrowRight color="blue" />
+            </span>
+          </div>
+          <div className="m-2 resize-none overflow-hidden border-none text-lg outline-none placeholder:italic focus:ring-0 focus-visible:outline-none focus-visible:ring-0 md:text-2xl">
+            {questionList[selectedQuestion].text}
+          </div>
         </div>
-        <div className="m-2 resize-none overflow-hidden border-none text-lg outline-none placeholder:italic focus:ring-0 focus-visible:outline-none focus-visible:ring-0 md:text-2xl">
-          {questionList[selectedQuestion].text}
+        <div className="w-full px-8">
+          {selectedField && (
+            <Suspense fallback={<Skeleton className="h-4 w-12" />}>
+              <selectedField.input
+                className="text-2xl"
+                onSubmit={() => {
+                  setSelectedQuestion(
+                    selectedQuestion + 1 === questionList.length
+                      ? 0
+                      : selectedQuestion + 1
+                  )
+                }}
+                isLast={isLast}
+              />
+            </Suspense>
+          )}
         </div>
-      </div>
-      <div className="w-full px-8">
-        {selectedField && (
-          <Suspense fallback={<Skeleton className="h-4 w-12" />}>
-            <selectedField.input
-              className="text-2xl"
-              onSubmit={() => {
-                setSelectedQuestion(
-                  selectedQuestion + 1 === questionList.length
-                    ? 0
-                    : selectedQuestion + 1
-                )
-              }}
-              isLast={isLast}
-            />
-          </Suspense>
-        )}
-      </div>
-    </motion.div>
-  </AnimatePresence>
-)
+      </motion.div>
+    </AnimatePresence>
+  )
+}
 
 function PreviewContent({ questionList }: IPreviewContent) {
   const [selectedQuestion, setSelectedQuestion] = useState(0)

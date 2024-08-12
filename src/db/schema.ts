@@ -38,6 +38,7 @@ export const formsRelation = relations(forms, ({ one, many }) => ({
     references: [workspaces.id],
   }),
   questions: many(questions),
+  responses: many(responses),
 }))
 
 export const questions = pgTable("questions", {
@@ -50,9 +51,28 @@ export const questions = pgTable("questions", {
 
 export type Question = typeof questions.$inferSelect
 
-export const questionsRelation = relations(questions, ({ one }) => ({
+export const questionsRelation = relations(questions, ({ one, many }) => ({
   form: one(forms, {
     fields: [questions.formId],
+    references: [forms.id],
+  }),
+  responses: many(responses),
+}))
+
+export const responses = pgTable("responses", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  text: text("text").notNull(),
+  formId: uuid("form_id").notNull(),
+  questionId: uuid("question_id").notNull(),
+})
+
+export const responsessRelation = relations(responses, ({ one, many }) => ({
+  question: one(questions, {
+    fields: [responses.questionId],
+    references: [questions.id],
+  }),
+  form: one(forms, {
+    fields: [responses.formId],
     references: [forms.id],
   }),
 }))

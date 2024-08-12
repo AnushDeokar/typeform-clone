@@ -31,9 +31,9 @@ async function LivePage({ params }: { params: IFormPage["params"] }) {
   const questions = await getQuestionByFormId(form.id)
 
   return (
-    <div>
+    <main>
       <PreviewContent questionList={questions} />
-    </div>
+    </main>
   )
 }
 
