@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
-function ShortTextInput({
+function EmailInput({
   onSubmit,
   className,
   isLast = false,
@@ -38,14 +38,15 @@ function ShortTextInput({
 
   return (
     <div className="my-4 flex flex-col gap-1">
-      <Textarea
+      <Input
         ref={textareaRef}
         value={value}
+        type="email"
         className={cn(
           `resize-none overflow-hidden border-none p-0 text-xl text-[#104eb3] outline-none placeholder:text-[#b8cae8] focus:ring-0 focus-visible:outline-none focus-visible:ring-0 ${fitsInSingleLine() ? "pb-0" : ""}`,
           className
         )}
-        placeholder="Type your answer here..."
+        placeholder="name@example.com"
         onChange={(e: any) => {
           adjustTextareaHeight()
           setValue(e.target.value)
@@ -65,4 +66,4 @@ function ShortTextInput({
   )
 }
 
-export default ShortTextInput
+export default EmailInput

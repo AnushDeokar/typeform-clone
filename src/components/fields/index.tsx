@@ -17,6 +17,7 @@ const ShortTextCreateAnswer = dynamic(
   () => import("./short-text/create-answer")
 )
 const ShortTextInput = dynamic(() => import("./short-text/input"))
+const EmailInput = dynamic(() => import("./email/input"))
 
 const EmailCreateAnswer = dynamic(() => import("./email/create-answer"))
 
@@ -71,7 +72,7 @@ export const FIELDS = [
     icon: <CiMail />,
     settings: ShortTextSettings,
     createAnswer: EmailCreateAnswer,
-    input: ShortTextInput,
+    input: EmailInput,
   },
   {
     type: "ADDRESS",

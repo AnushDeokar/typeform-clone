@@ -6,7 +6,7 @@ import { IoStar } from "react-icons/io5"
 
 import { Button } from "@/components/ui/button"
 
-function RatingInput({ onSubmit }: { onSubmit: () => void }) {
+function RatingInput({ onSubmit }: { onSubmit: (v: number) => void }) {
   const [starsCount, setStarsCount] = useState(7)
   const [filled, setFilled] = useState(0)
 
@@ -41,7 +41,7 @@ function RatingInput({ onSubmit }: { onSubmit: () => void }) {
       <div className="flex">
         <Button
           className="h-10 rounded-md bg-[#104eb3] text-lg text-white hover:bg-[#104eb3]/80"
-          onClick={onSubmit}
+          onClick={() => onSubmit(filled)}
         >
           OK
         </Button>

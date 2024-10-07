@@ -60,6 +60,8 @@ const QuestionContent = ({
   setSelectedQuestion: React.Dispatch<React.SetStateAction<number>>
   isLast?: boolean
 }) => {
+  const [responses, setResponses] = useState<any[]>([])
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -89,12 +91,22 @@ const QuestionContent = ({
             <Suspense fallback={<Skeleton className="h-4 w-12" />}>
               <selectedField.input
                 className="text-2xl"
-                onSubmit={() => {
+                onSubmit={(v: any) => {
                   setSelectedQuestion(
                     selectedQuestion + 1 === questionList.length
                       ? 0
                       : selectedQuestion + 1
                   )
+                  const newResponses = responses.filter(
+                    (r) => r.questionId !== questionList[selectedQuestion].id
+                  )
+                  const newResponse = {
+                    questionId: questionList[selectedQuestion].id,
+                    answer: v,
+                  }
+                  console.log("newResponse", newResponse)
+                  newResponses.push(newResponse)
+                  setResponses(newResponses)
                 }}
                 isLast={isLast}
               />
