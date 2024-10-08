@@ -6,6 +6,8 @@ import { useQuestionStore } from "@/stores/question"
 import { AnimatePresence, motion } from "framer-motion"
 import { FaArrowRight, FaChevronDown, FaChevronUp } from "react-icons/fa"
 
+import { addResponses } from "@/lib/actions/response"
+
 import { FIELDS } from "../fields"
 import { Button } from "../ui/button"
 import { Skeleton } from "../ui/skeleton"
@@ -61,6 +63,13 @@ const QuestionContent = ({
   isLast?: boolean
 }) => {
   const [responses, setResponses] = useState<any[]>([])
+  const [displayEndScreen, setDisplayEndScreen] = useState(false)
+  const handleSubmitResponses = async (allResponses: any[]) => {
+    const res = await addResponses(allResponses)
+    if (res.data) {
+      setDisplayEndScreen(true)
+    }
+  }
 
   return (
     <AnimatePresence mode="wait">
@@ -102,11 +111,14 @@ const QuestionContent = ({
                   )
                   const newResponse = {
                     questionId: questionList[selectedQuestion].id,
-                    answer: v,
+                    text: v,
+                    formId: questionList[selectedQuestion].formId,
                   }
-                  console.log("newResponse", newResponse)
                   newResponses.push(newResponse)
                   setResponses(newResponses)
+                  if (isLast) {
+                    handleSubmitResponses(newResponses)
+                  }
                 }}
                 isLast={isLast}
               />
