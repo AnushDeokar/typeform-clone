@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useModalStore } from "@/stores/modal"
 import { useQuestionStore } from "@/stores/question"
 import { User } from "@clerk/nextjs/server"
@@ -31,6 +31,7 @@ const navbarOptions = [
 
 function FormNavbar({ user }: { user: User | null }) {
   const router = useRouter()
+  const pathname = usePathname()
   const [loading, setLoading] = useState(false)
   const { selectedQuestion } = useQuestionStore()
   const { setPublishModal } = useModalStore()
@@ -45,6 +46,18 @@ function FormNavbar({ user }: { user: User | null }) {
     setLoading(false)
   }
 
+  const getActiveTab = () => {
+    const lastSegment = pathname.split("/").pop()?.split("#")[0]
+    return lastSegment || "create"
+  }
+
+  const activeTab = getActiveTab()
+
+  const handleTabClick = (tab: string) => {
+    const formId = pathname.split("/")[2] // Get formId from current path
+    router.push(`/form/${formId}/${tab}`)
+  }
+
   return (
     <nav className="flex h-12 w-full items-center">
       <div className="flex items-center gap-2" onClick={() => router.push("/")}>
@@ -52,13 +65,22 @@ function FormNavbar({ user }: { user: User | null }) {
         <h3 className="text-[20px] font-semibold">Typeform</h3>
       </div>
       <div className="flex h-full w-full grow justify-center gap-8">
-        <div className="flex  h-full border-t-4 border-black  text-[14px] font-semibold">
+        <div
+          className={`flex h-full border-t-4 ${activeTab === "create" ? "border-black" : ""} text-[14px] font-semibold ${activeTab === "create" ? "" : "text-secgray"} cursor-pointer`}
+          onClick={() => handleTabClick("create")}
+        >
           <span className="mb-2 mt-auto">Create</span>
         </div>
-        <div className="flex  h-full border-t-4  text-[14px] font-semibold text-secgray">
+        {/* <div 
+          className={`flex h-full border-t-4 ${activeTab === 'share' ? 'border-black' : ''} text-[14px] font-semibold ${activeTab === 'share' ? '' : 'text-secgray'} cursor-pointer`}
+          onClick={() => handleTabClick('share')}
+        >
           <span className="mb-2 mt-auto">Share</span>
-        </div>
-        <div className="flex  h-full border-t-4  text-[14px] font-semibold text-secgray">
+        </div> */}
+        <div
+          className={`flex h-full border-t-4 ${activeTab === "results" ? "border-black" : ""} text-[14px] font-semibold ${activeTab === "results" ? "" : "text-secgray"} cursor-pointer`}
+          onClick={() => handleTabClick("results")}
+        >
           <span className="mb-2 mt-auto">Results</span>
         </div>
       </div>
@@ -74,7 +96,7 @@ function FormNavbar({ user }: { user: User | null }) {
           <TbSend2 size={14} /> Publish
         </Button>
         <div className="h-8 border"></div>
-        <Button className="h-8 bg-[#ae4e09] hover:bg-[#754a2b]">
+        <Button className="bg-[rgb(23, 119, 103)] hover:bg-[rgb(23, 119, 103)] h-8">
           View Plans
         </Button>
       </div>

@@ -41,7 +41,7 @@ async function getFormData(formId: string) {
   }
 }
 
-async function FormPage({ params }: { params: IFormPage["params"] }) {
+async function ResultsPage({ params }: { params: IFormPage["params"] }) {
   const form = await getFormData(params.formId)
   if (!form) {
     return notFound()
@@ -50,13 +50,13 @@ async function FormPage({ params }: { params: IFormPage["params"] }) {
   const questions = await getQuestionByFormId(form.id)
 
   return (
-    <div className="flex w-full grow gap-1 pb-4">
-      <FormPreview />
-      <QuestionsPanel questions={questions} />
-      <FormDisplay form={form} />
-      <FormSettings />
+    <div className="flex w-full grow flex-col items-center justify-center gap-4 pb-4">
+      <h2 className="text-2xl font-semibold">Results Page</h2>
+      <p className="text-gray-500">
+        This feature is currently under development. Check back soon!
+      </p>
     </div>
   )
 }
 
-export default FormPage
+export default ResultsPage

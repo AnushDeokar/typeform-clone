@@ -55,15 +55,16 @@ const QuestionContent = ({
   selectedField,
   setSelectedQuestion,
   isLast = false,
+  setDisplayEndScreen,
 }: {
   selectedQuestion: number
   questionList: any[]
   selectedField: any
   setSelectedQuestion: React.Dispatch<React.SetStateAction<number>>
   isLast?: boolean
+  setDisplayEndScreen: (v: boolean) => void
 }) => {
   const [responses, setResponses] = useState<any[]>([])
-  const [displayEndScreen, setDisplayEndScreen] = useState(false)
   const handleSubmitResponses = async (allResponses: any[]) => {
     const res = await addResponses(allResponses)
     if (res.data) {
@@ -101,11 +102,15 @@ const QuestionContent = ({
               <selectedField.input
                 className="text-2xl"
                 onSubmit={(v: any) => {
-                  setSelectedQuestion(
-                    selectedQuestion + 1 === questionList.length
-                      ? 0
-                      : selectedQuestion + 1
-                  )
+                  if (selectedQuestion + 1 === questionList.length) {
+                    setDisplayEndScreen(true)
+                  } else {
+                    setSelectedQuestion(
+                      selectedQuestion + 1 === questionList.length
+                        ? 0
+                        : selectedQuestion + 1
+                    )
+                  }
                   const newResponses = responses.filter(
                     (r) => r.questionId !== questionList[selectedQuestion].id
                   )
@@ -132,6 +137,7 @@ const QuestionContent = ({
 
 function PreviewContent({ questionList }: IPreviewContent) {
   const [selectedQuestion, setSelectedQuestion] = useState(0)
+  const [displayEndScreen, setDisplayEndScreen] = useState(false)
 
   if (questionList.length === 0) {
     return (
@@ -144,6 +150,23 @@ function PreviewContent({ questionList }: IPreviewContent) {
   const selectedField = FIELDS.find(
     (f) => f.type === questionList[selectedQuestion].type
   )
+
+  if (displayEndScreen) {
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center gap-4 text-center">
+        <p className="italic">Thank you for submitting the form!</p>
+        <Button
+          className="h-11 bg-[#104eb3] hover:bg-[#104eb3]/80"
+          onClick={() => {
+            setSelectedQuestion(0)
+            setDisplayEndScreen(false)
+          }}
+        >
+          Submit another response
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="flex h-screen w-screen">
@@ -170,6 +193,7 @@ function PreviewContent({ questionList }: IPreviewContent) {
           selectedField={selectedField}
           setSelectedQuestion={setSelectedQuestion}
           isLast={selectedQuestion === questionList.length - 1}
+          setDisplayEndScreen={setDisplayEndScreen}
         />
       </div>
     </div>
